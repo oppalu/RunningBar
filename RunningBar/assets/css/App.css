@@ -1,0 +1,103 @@
+@import url("components/login.css");
+@import url("components/button.css");
+@import url("components/form.css");
+@import url("components/mainheader.css");
+@import url("components/siderbar.css");
+@import url("components/dropdown.css");
+@import url("components/maincontent.css");
+@import url("components/tab.css");
+@import url("components/box.css");
+
+html,
+body {
+    min-height: 100%;
+}
+.layout-boxed html,
+.layout-boxed body {
+    height: 100%;
+}
+body {
+    /*反锯齿*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.content {
+    min-height: 250px;
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+/* H1 - H6 font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h0,
+.h01,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* General Links */
+a {
+    color: #3c8dbc;
+}
+a:hover,
+a:active,
+a:focus {
+    outline: none;
+    /*去掉超链接时的下划线*/
+    text-decoration: none;
+    color: #72afd2;
+}
+/*!* Page Header *!*/
+/*.page-header {*/
+    /*margin: 10px 0 20px 0;*/
+    /*font-size: 22px;*/
+/*}*/
+/*.page-header > small {*/
+    /*color: #666;*/
+    /*display: block;*/
+    /*margin-top: 5px;*/
+/*}*/
+/*.wrapper {*/
+    /*min-height: 100%;*/
+    /*position: relative;*/
+    /*overflow: hidden;*/
+/*}*/
+/*.wrapper:before,*/
+/*.wrapper:after {*/
+    /*content: " ";*/
+    /*display: table;*/
+/*}*/
+/*.wrapper:after {*/
+    /*clear: both;*/
+/*}*/
+/*.layout-boxed .wrapper {*/
+    /*max-width: 1250px;*/
+    /*margin: 0 auto;*/
+    /*min-height: 100%;*/
+    /*box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);*/
+    /*position: relative;*/
+/*}*/
+/*.layout-boxed {*/
+    /*background: url('../img/boxed-bg.jpg') repeat fixed;*/
+/*}*/
+
+/*.label-default {*/
+    /*background-color: #d2d6de;*/
+    /*color: #444;*/
+/*}*/

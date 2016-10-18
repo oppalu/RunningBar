@@ -1,0 +1,58 @@
+.login-page {
+    /*图片找不到的缺省背景色*/
+    background: #d2d6de;;
+    background-image: url("../../img/bg3.png");
+    /*大小适应屏幕*/
+    background-size: cover;
+}
+
+.login-box{
+    width: 400px;
+    /*上边距,自动适应*/
+    margin: 7% auto;
+}
+/*设置响应式*/
+@media (max-width: 768px) {
+    .login-box{
+        width: 90%;
+        margin-top: 20px;
+    }
+}
+
+.login-logo{
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+.login-logo a{
+    color: #444;
+    /*去掉超链接的下划线*/
+    text-decoration:none;
+}
+.login-sublogo{
+    font-size: 20px;
+    color: #9c9c9c;
+    text-align: center;
+    margin: 0;
+    padding: 0 20px 20px 20px;
+}
+.login-msg{
+    font-size: 15px;
+    color: #9c9c9c;
+    text-align: center;
+    margin: 0;
+}
+
+.login-box-body{
+    background: #fff;
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+}
+.login-box-body .form-control-feedback{
+    color: #777;
+}
+.social-auth-links {
+    margin: 10px 0;
+}
