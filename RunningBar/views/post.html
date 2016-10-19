@@ -1,15 +1,15 @@
+<!--个人动态列表-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>活动管理</title>
+    <title>个人动态</title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="../assets/css/App.css">
-    <link rel="stylesheet" href="../assets/css/skins/allskins.css">
 
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -58,8 +58,10 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li class="footer"><a href="#">查看所有新的评论与回复</a></li>
                         </ul>
                     </li>
+
                     <!--用户头像信息-->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -137,12 +139,12 @@
                     <ul class="treeview-menu">
                         <li><a href="sportdata.html"><i class="fa fa-circle-o"></i> 历史数据展示</a></li>
                         <li><a href="analyse.html"><i class="fa fa-circle-o"></i> 统计分析</a></li>
-                        <li><a href="post.html"><i class="fa fa-circle-o"></i> 我的动态</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> 我的动态</a></li>
                     </ul>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="activity.html">
                         <i class="glyphicon glyphicon-th"></i>
                         <span>活动管理</span>
                     </a>
@@ -161,7 +163,7 @@
     <!--中心界面部分-->
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>活动管理</h1>
+            <h1>个人动态</h1>
         </section>
         <section class="content">
             <div class="row">
@@ -173,112 +175,66 @@
                             </div>
                             <div class="col-sm-6">
                                 <h3>Jessica</h3>
-                                <p class="text-muted">LV1</p>
-                            </div>
-                            <div class="col-sm-8">
-                                <a href="activity_add.html" class="btn btn-primary btn-block"><b>发起活动</b></a>
-                            </div>
-                            <div class="col-sm-4">
-                                <a href="#">规则介绍</a>
+                                <p class="text-muted">1条动态</p>
                             </div>
                         </div>
-                        <!--box-body-->
                     </div>
-                    <!--box-->
+
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            发布新动态
+                        </div>
+                        <div class="box-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" id="posttitle" placeholder="标题">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <textarea class="textarea" placeholder="随便说点什么吧" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-3">
+                                        <button type="submit" class="btn btn-app">发布</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!--col-md-2-->
+
                 <div class="col-md-9">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#list" data-toggle="tab">所有活动</a></li>
-                            <li><a href="#join" data-toggle="tab">我的战绩</a></li>
-                            <li><a href="#own" data-toggle="tab">管理我的活动</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <!--所有活动列表tab-->
-                            <div class="tab-pane active" id="list">
-                                <div class="box box-primary">
-                                    <div class="box-body">
-                                        <ul>
-                                            <!--类型,名称,时间,已参与人数,状态-->
-                                            <li class="col-md-12">
-                                                <div class="col-sm-1">
-                                                    <img style="width: 100%;" class="img-circle" src="../assets/img/single.png">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <a href="activity_info.html">
-                                                        <h4>绿色长征</h4>
-                                                    </a>
-                                                    <label class="label-success">进行中</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <label>2016-10-1 - 2016-10-30</label>
-                                                </div>
-                                                <div class="col-sm-4 pull-right">
-                                                    <label>已参与人数:12345</label>
-                                                </div>
-                                                <hr class="col-sm-12" size="10">
-                                            </li>
-                                            <li class="col-md-12">
-                                                <div class="col-sm-1">
-                                                    <img style="width: 100%;" class="img-circle" src="../assets/img/team.jpg">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <a href="activity_info.html">
-                                                        <h4>马拉松</h4>
-                                                    </a>
-                                                    <label class="label-danger">已结束</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <label>2016-10-01 - 2016-10-10</label>
-                                                </div>
-                                                <div class="col-sm-4 pull-right">
-                                                    <label>已参与人数:12345</label>
-                                                </div>
-                                                <hr class="col-sm-12" size="10">
-                                            </li>
-                                        </ul>
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">所有动态</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <ul class="products-list product-list-in-box">
+                                <li class="item">
+                                    <div class="col-md-offset-1 col-md-8 col-sm-8">
+                                        <a class="h4" href="postinfo.html">
+                                            测试使用
+                                        </a>
+                                        <p class="product-description">
+                                            测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                            测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                                        </p>
                                     </div>
-                                </div>
-                            </div>
-                            <!--我参与的活动列表tab-->
-                            <div class="tab-pane" id="join">
-                                <div class="box box-primary">
-                                    <div class="box-body">
-                                        <ul>
-                                            <li class="col-md-12">
-                                                <div class="col-sm-1">
-                                                    <img style="width: 100%;" class="img-circle" src="../assets/img/team.jpg">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <a href="activity_joined.html">
-                                                        <h4>马拉松</h4>
-                                                    </a>
-                                                    <label class="label-success">挑战成功</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <label>10.0公里</label>
-                                                </div>
-                                                <div class="col-sm-4 pull-right">
-                                                    <label>排名:第1000名</label>
-                                                </div>
-                                                <hr class="col-sm-12" size="10">
-                                            </li>
-                                        </ul>
+                                    <div>
+                                        <input type="button" class="btn btn-danger" value="删除">
                                     </div>
-                                </div>
-                            </div>
-                            <!--我的活动列表tab-->
-                            <div class="tab-pane" id="own">
-
-                            </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <!--col-md-10-->
             </div>
-            <!--row-->
         </section>
     </div>
 

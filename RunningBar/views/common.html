@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="../assets/css/App.css">
-    <link rel="stylesheet" href="../assets/css/skins/allskins.css">
 
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
@@ -39,7 +38,7 @@
                             <span class="label label-danger">&nbsp;</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你收到了新的评论</li>
+                            <li class="header">你收到了新消息</li>
                             <li>
                                 <ul class="menu">
                                     <li>
@@ -51,21 +50,6 @@
                                             <p>测试使用</p>
                                         </a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">查看所有新的评论与回复</a></li>
-                        </ul>
-                    </li>
-                    <!--收到的系统消息(闹钟)-->
-                    <li class="dropdown notifications-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">&nbsp;</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">你有新的系统消息</li>
-                            <li>
-                                <ul class="menu">
                                     <li>
                                         <a href="#">
                                             <i class="fa fa-users text-aqua"></i> aaa关注了你
@@ -73,9 +57,9 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">查看所有系统消息</a></li>
                         </ul>
                     </li>
+
                     <!--用户头像信息-->
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -153,6 +137,7 @@
                     <ul class="treeview-menu">
                         <li><a href="sportdata.html"><i class="fa fa-circle-o"></i> 历史数据展示</a></li>
                         <li><a href="analyse.html"><i class="fa fa-circle-o"></i> 统计分析</a></li>
+                        <li><a href="post.html"><i class="fa fa-circle-o"></i> 我的动态</a></li>
                     </ul>
                 </li>
 
@@ -164,7 +149,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="postlist.html">
                         <i class="glyphicon glyphicon-user"></i>
                         <span>好友动态</span>
                     </a>
@@ -184,3 +169,56 @@
 </div>
 </body>
 </html>
+
+
+<section class="content-header">
+    <h4>好友动态</h4>
+</section>
+<section class="content">
+    <div class="box box-default col-md-12">
+        <div class="box-body">
+            <div class="post clearfix" style="margin: 2%">
+                <div class="user-block">
+                    <div class="col-md-1">
+                        <img style="width: 80%" class="img-circle img-bordered-sm" src="../assets/img/avatar2.png">
+                    </div>
+                    <a href="#">Phoebe</a>
+                    <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
+                </div>
+                <p>很好这里是评论区</p>
+
+                <form class="form-horizontal">
+                    <div class="form-group margin-bottom-none">
+                        <div class="col-sm-10">
+                            <input class="form-control input-sm" placeholder="回复">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="post clearfix" style="margin: 2%">
+                <div class="user-block">
+                    <div class="col-md-1">
+                        <img style="width: 80%" class="img-circle img-bordered-sm" src="../assets/img/avatar2.png">
+                    </div>
+                    <a href="#">Phoebe</a>
+                    <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
+                </div>
+                <p>很好这里是评论区</p>
+
+                <form class="form-horizontal">
+                    <div class="form-group margin-bottom-none">
+                        <div class="col-sm-10">
+                            <input class="form-control input-sm" placeholder="回复">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

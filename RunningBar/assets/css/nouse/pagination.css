@@ -1,8 +1,0 @@
-/* PAGINATION */
-.pagination > li > a {
-    background: #fafafa;
-    color: #666;
-}
-.pagination.pagination-flat > li > a {
-    border-radius: 0 !important;
-}
