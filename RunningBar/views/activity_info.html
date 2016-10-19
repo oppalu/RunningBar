@@ -38,11 +38,11 @@
                             <span class="label label-danger">&nbsp;</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">你收到了新的评论</li>
+                            <li class="header">你收到了新消息</li>
                             <li>
                                 <ul class="menu">
                                     <li>
-                                        <a href="#">
+                                        <a data-toggle="modal" href="#" data-target="#comment">
                                             <div class="pull-left">
                                                 <img src="../assets/img/avatar2.png" class="img-circle" alt="User Image">
                                             </div>
@@ -51,13 +51,12 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a data-toggle="modal" href="#" data-target="#read">
                                             <i class="fa fa-users text-aqua"></i> aaa关注了你
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">查看所有新的评论与回复</a></li>
                         </ul>
                     </li>
                     <!--用户头像信息-->
@@ -236,6 +235,29 @@
     <footer class="main-footer">
         <strong>Copyright &copy; Phoebe Gao</strong> All rights reserved.
     </footer>
+
+    <div class="modal fade" id="read" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">这里是消息的内容</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">这里是消息的内容</div>
+                <div class="modal-footer">
+                    <input class="form-control input-sm" type="text" placeholder="回复点什么吧">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

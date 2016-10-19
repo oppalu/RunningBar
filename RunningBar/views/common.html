@@ -42,7 +42,7 @@
                             <li>
                                 <ul class="menu">
                                     <li>
-                                        <a href="#">
+                                        <a data-toggle="modal" href="#" data-target="#comment">
                                             <div class="pull-left">
                                                 <img src="../assets/img/avatar2.png" class="img-circle" alt="User Image">
                                             </div>
@@ -51,7 +51,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a data-toggle="modal" href="#" data-target="#read">
                                             <i class="fa fa-users text-aqua"></i> aaa关注了你
                                         </a>
                                     </li>
@@ -166,59 +166,29 @@
     <footer class="main-footer">
         <strong>Copyright &copy; Phoebe Gao</strong> All rights reserved.
     </footer>
-</div>
-</body>
-</html>
 
-
-<section class="content-header">
-    <h4>好友动态</h4>
-</section>
-<section class="content">
-    <div class="box box-default col-md-12">
-        <div class="box-body">
-            <div class="post clearfix" style="margin: 2%">
-                <div class="user-block">
-                    <div class="col-md-1">
-                        <img style="width: 80%" class="img-circle img-bordered-sm" src="../assets/img/avatar2.png">
-                    </div>
-                    <a href="#">Phoebe</a>
-                    <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
+    <div class="modal fade" id="read" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">这里是消息的内容</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
-                <p>很好这里是评论区</p>
-
-                <form class="form-horizontal">
-                    <div class="form-group margin-bottom-none">
-                        <div class="col-sm-10">
-                            <input class="form-control input-sm" placeholder="回复">
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="post clearfix" style="margin: 2%">
-                <div class="user-block">
-                    <div class="col-md-1">
-                        <img style="width: 80%" class="img-circle img-bordered-sm" src="../assets/img/avatar2.png">
-                    </div>
-                    <a href="#">Phoebe</a>
-                    <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
-                </div>
-                <p>很好这里是评论区</p>
-
-                <form class="form-horizontal">
-                    <div class="form-group margin-bottom-none">
-                        <div class="col-sm-10">
-                            <input class="form-control input-sm" placeholder="回复">
-                        </div>
-                        <div class="col-sm-2">
-                            <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
-</section>
+    <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">这里是消息的内容</div>
+                <div class="modal-footer">
+                    <input class="form-control input-sm" type="text" placeholder="回复点什么吧">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">回复</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
