@@ -168,7 +168,7 @@
     width: auto;
 }
 
-/*sidebar mini*/
+
 @media (min-width: 768px) {
     .sidebar-mini.sidebar-collapse .content-wrapper,
     .sidebar-mini.sidebar-collapse .right-side,

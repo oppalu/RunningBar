@@ -37,7 +37,7 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
-/* H1 - H6 font */
+
 h1,
 h2,
 h3,
@@ -55,7 +55,6 @@ h6,
     font-family: Microsoft YaHei;
 }
 
-/* General Links */
 a {
     color: #3c8dbc;
 }
@@ -67,41 +66,3 @@ a:focus {
     text-decoration: none;
     color: #72afd2;
 }
-/*!* Page Header *!*/
-/*.page-header {*/
-    /*margin: 10px 0 20px 0;*/
-    /*font-size: 22px;*/
-/*}*/
-/*.page-header > small {*/
-    /*color: #666;*/
-    /*display: block;*/
-    /*margin-top: 5px;*/
-/*}*/
-/*.wrapper {*/
-    /*min-height: 100%;*/
-    /*position: relative;*/
-    /*overflow: hidden;*/
-/*}*/
-/*.wrapper:before,*/
-/*.wrapper:after {*/
-    /*content: " ";*/
-    /*display: table;*/
-/*}*/
-/*.wrapper:after {*/
-    /*clear: both;*/
-/*}*/
-/*.layout-boxed .wrapper {*/
-    /*max-width: 1250px;*/
-    /*margin: 0 auto;*/
-    /*min-height: 100%;*/
-    /*box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);*/
-    /*position: relative;*/
-/*}*/
-/*.layout-boxed {*/
-    /*background: url('../img/boxed-bg.jpg') repeat fixed;*/
-/*}*/
-
-/*.label-default {*/
-    /*background-color: #d2d6de;*/
-    /*color: #444;*/
-/*}*/
