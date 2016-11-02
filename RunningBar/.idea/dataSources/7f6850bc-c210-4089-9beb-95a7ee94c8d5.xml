@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Sqlite (Xerial) - runningbar.db">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="2.6">
+    <schema id="1">
+      <visible>1</visible>
+    </schema>
+    <table id="2" parent="1" name="user"/>
+    <column id="3" parent="2" name="username">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="4" parent="2" name="phone">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="5" parent="2" name="password">
+      <mandatory>1</mandatory>
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="6" parent="2" name="registertime">
+      <mandatory>1</mandatory>
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <column id="7" parent="2" name="avatar">
+      <data-type>BLOB(0,-1)|12</data-type>
+    </column>
+    <column id="8" parent="2" name="sex">
+      <data-type>CHAR(50)(0,-1)|12</data-type>
+    </column>
+    <column id="9" parent="2" name="birth">
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <column id="10" parent="2" name="location">
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="11" parent="2" name="interest">
+      <data-type>VARCHAR(255)(0,-1)|12</data-type>
+    </column>
+    <column id="12" parent="2" name="slogen">
+      <data-type>TEXT(0,-1)|12</data-type>
+    </column>
+    <column id="13" parent="2" name="level">
+      <mandatory>1</mandatory>
+      <data-type>INT(0,-1)|4</data-type>
+    </column>
+    <key id="14" parent="2">
+      <columns>username</columns>
+      <primary>1</primary>
+    </key>
+  </database-model>
+</dataSource>
