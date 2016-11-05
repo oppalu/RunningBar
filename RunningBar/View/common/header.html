@@ -1,0 +1,152 @@
+<header class="main-header">
+    <!--logo-->
+    <a href="../../index.php" class="logo">
+        <span class="logo-mini"><b>RB</b></span>
+        <span class="logo-lg"><b>Running Bar</b></span>
+    </a>
+
+    <!--上面的导航栏-->
+    <nav class="navbar navbar-static-top">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!--收到的回复等(信封)-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-danger">&nbsp;</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">你收到了新消息</li>
+                        <li>
+                            <ul class="menu">
+                                <li>
+                                    <a data-toggle="modal" href="#" data-target="#comment">
+                                        <div class="pull-left">
+                                            <img src="common/assets/img/avatar2.png" class="img-circle" alt="User Image">
+                                        </div>
+                                        <h4>Test</h4>
+                                        <p>测试使用</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="modal" href="#" data-target="#read">
+                                        <i class="fa fa-users text-aqua"></i> aaa关注了你
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <!--用户头像信息-->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="common/assets/img/avatar.png" class="user-image" alt="User Image">
+                        <span class="hidden-xs">Jessica</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <img src="common/assets/img/avatar.png" class="img-circle" alt="User Image">
+                            <p>Jessica</p>
+                        </li>
+                        <!-- 具体信息 -->
+                        <li class="user-body">
+                            <div class="row">
+                                <div class="col-xs-6 text-center">
+                                    <a href="../View/friends.php">我的关注</a>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <a href="../View/friends.php">我的粉丝</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="../View/userinfo.php" class="btn btn-default btn-flat">个人信息</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="../View/login.php" class="btn btn-default btn-flat">登出</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!--左边的导航栏-->
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <!--用户信息部分-->
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="common/assets/img/avatar.png" class="img-circle" alt="User Image">
+            </div>
+            <div class="pull-left info">
+                <p>Jessica</p>
+            </div>
+        </div>
+
+        <!--搜索部分-->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
+
+        <!--下面不同的tab-->
+        <ul class="sidebar-menu">
+            <li class="header"></li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="glyphicon glyphicon-file"></i>
+                    <span>个人运动数据</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../View/sportdata.php"><i class="fa fa-circle-o"></i> 历史数据展示</a></li>
+                    <li><a href="../View/analyse.php"><i class="fa fa-circle-o"></i> 统计分析</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-th"></i>
+                    <span>活动管理</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../View/activity.php"><i class="fa fa-circle-o"></i> 最新活动</a></li>
+                    <li><a href="../View/activitymy.php"><i class="fa fa-circle-o"></i> 我的活动</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="glyphicon glyphicon-list"></i>
+                    <span>动态管理</span>
+                    <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="../View/post.php"><i class="fa fa-circle-o"></i> 我的动态</a></li>
+                    <li><a href="../View/postlist.php"><i class="fa fa-circle-o"></i> 好友动态</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>
