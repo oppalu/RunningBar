@@ -13,10 +13,6 @@ require 'MyDB.php';
 
 MyDB::initialize();
 
-//require 'Database.php';
-//
-//Database::initialize();
-
 $users = MyDB::update(
     'follower',
     array(

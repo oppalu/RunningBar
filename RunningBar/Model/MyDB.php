@@ -8,7 +8,6 @@
 class MyDB {
     private static $DB;
     private static $rowNumber;
-    //private static $queryCount;
 
     static function initialize() {
         try {
