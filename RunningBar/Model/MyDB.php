@@ -7,7 +7,6 @@
  */
 class MyDB {
     private static $DB;
-    private static $rowNumber;
 
     static function initialize() {
         try {
@@ -20,12 +19,76 @@ class MyDB {
         }
     }
 
-    static function select($tableName, $columns, $parameters = array()) {
+    /**
+     * @param $tableName
+     * @param $columns
+     * @param array $params
+     * 参数列表说明:
+     * where:使用array(key=>value)
+     * group by
+     * having
+     * order by
+     * limit
+     * fetchStyle
+     */
+    static function select($tablename, $columns, $params = array()) {
+        $where = null;
+        if(isset($params['where'])) {
+            $where_arr = array();
 
-    }
+            $where_param = implode(' AND ', array_map(
+                create_function('$key,$value', 'return $key.\' = : \'.str_replace(".","",$key);'),
+                array_keys($params['where']), array_values($params['where'])
+            ));
 
-    static function countNum() {
-        return (int)self::$rowNumber;
+            foreach ($params['where'] as $parameter=>$value) {
+                unset($params['where'][$parameter]);
+                $params['where'][str_replace('.','',$parameter)] = $value;
+            }
+            if($where_param != '')
+                $where_arr[] = $where_param;
+
+            if(count($where_arr) > 0)
+                $where = ' WHERE '.implode(' AND ', $where_arr );
+        } else {
+            $params['where'] = null;
+        }
+
+        $groupby = null;
+        if(isset($params['groupby']))
+            $groupby = ' GROUP BY '. $params['groupby'];
+
+        $having = null;
+        if(isset($params['having']))
+            $having = ' HAVING '. $params['having'];
+
+        $orderby = null;
+        if(isset($params['orderby']))
+            $orderby = ' ORDER BY '. $params['orderby'];
+
+        $limit = null;
+        if(isset($params['limit']))
+            $groupby = ' LIMIT '. $params['limit'];
+
+        $fetchStyle = PDO::FETCH_ASSOC;
+        if(isset($params['fetchStyle'])) {
+            switch( $params['fetchStyle'] ) {
+                case 'assoc':			$fetchStyle = PDO::FETCH_ASSOC; 	break;
+                case 'num':				$fetchStyle = PDO::FETCH_NUM; 		break;
+                case 'singleColumn':	$fetchStyle = PDO::FETCH_COLUMN; 	break;
+                default:				$fetchStyle = PDO::FETCH_ASSOC; 	break;
+            }
+        }
+
+        try {
+            $sql = 'SELECT '. implode(',', (array)$columns). ' FROM '. $tablename. $where. $groupby. $having. $orderby. $limit;
+            $query = self::$DB->prepare($sql);
+            $query->execute($params['where']);
+            $result = $query->fetchAll($fetchStyle);
+            return $result;
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
     }
 
     static function insert($tablename, $data) {
