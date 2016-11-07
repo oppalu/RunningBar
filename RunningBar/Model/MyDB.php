@@ -2,6 +2,7 @@
 /**
  * Created by PhpStorm.
  * User: phoebegl
+ * 封装数据库基本方法
  * Date: 2016/11/5
  * Time: 15:04
  */
@@ -12,7 +13,6 @@ class MyDB {
         try {
             if(self::$DB == null)
                 self::$DB = new PDO(DB_TYPE. ':'. DB_NAME);
-
             return true;
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -95,7 +95,6 @@ class MyDB {
         try {
             $query = self::$DB->prepare('INSERT INTO '. $tablename. ' ('. self::implode_key(',', $data ).
                 ') VALUES (:'. self::implode_key(',:', $data). ')');
-
             return $query->execute($data);
         } catch (PDOException $e) {
             return $e->getMessage();
