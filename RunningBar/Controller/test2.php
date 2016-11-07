@@ -7,8 +7,28 @@
  */
 
 require 'UserController.php';
+
 $controller = new UserController();
 
-$result = $controller->login('test','test');
-print_r($result);
+$username = 'oppalu';
+$phone = '13401271090';
+$password = '123456';
+$t = date('Y-m-d H:m:s',time());
+
+//$result = MyDB::delete(
+//    'user',
+//    array(
+//        'userid'=>4
+//    )
+//);
+//print_r($result);
+//$result1 = $controller->register($username,$phone,$password);
+$result2 = $controller->login('oppalu','123456');
+$result3 = $controller->test();
+print_r($result2);
+print_r($result3);
+
+
+
+
 

@@ -12,6 +12,7 @@ class UserController {
     private $user;
 
     function __construct() {
+        date_default_timezone_set("Asia/Shanghai");
         $this->user = new UserModel();
     }
 
@@ -20,8 +21,13 @@ class UserController {
     }
 
     function login($username,$password) {
-        $temp = json_encode($this->user->findPass($username),TRUE);
+        $temp = json_decode($this->user->findPass($username),TRUE);
         $real = $temp[0]['password'];
         return $real == $password;
+    }
+
+    function test() {
+
+        return $this->user->test();
     }
 }

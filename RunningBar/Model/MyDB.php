@@ -11,8 +11,11 @@ class MyDB {
 
     static function initialize() {
         try {
-            if(self::$DB == null)
+            if(self::$DB == null) {
                 self::$DB = new PDO(DB_TYPE. ':'. DB_NAME);
+                self::$DB->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            }
+
             return true;
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -31,48 +34,49 @@ class MyDB {
      * limit
      * fetchStyle
      */
-    static function select($tablename, $columns, $params = array()) {
+    static function select($tablename, $columns, $parameters = array()) {
         $where = null;
-        if(isset($params['where'])) {
-            $where_arr = array();
 
+        if(isset($parameters['where'])) {
+            $where_arr = array();
+            //array_map()函数将用户自定义函数作用到数组中的每个值上，并返回用户自定义函数作用后的带有新值的数组。
             $where_param = implode(' AND ', array_map(
-                create_function('$key,$value', 'return $key.\' = : \'.str_replace(".","",$key);'),
-                array_keys($params['where']), array_values($params['where'])
+                create_function('$key, $value', 'return $key.\' = :\'.str_replace(".","",$key);'),
+                array_keys($parameters['where']), array_values($parameters['where'])
             ));
 
-            foreach ($params['where'] as $parameter=>$value) {
-                unset($params['where'][$parameter]);
-                $params['where'][str_replace('.','',$parameter)] = $value;
+            foreach ((array)$parameters['where'] as $param=>$value) {
+                unset($parameters['where'][$param]);
+                $parameters['where'][str_replace('.','',$param)] = $value;
             }
+
             if($where_param != '')
                 $where_arr[] = $where_param;
-
             if(count($where_arr) > 0)
-                $where = ' WHERE '.implode(' AND ', $where_arr );
+                $where = ' WHERE '. implode(' AND ',$where_arr);
         } else {
-            $params['where'] = null;
+            $parameters['where'] = null;
         }
 
         $groupby = null;
-        if(isset($params['groupby']))
-            $groupby = ' GROUP BY '. $params['groupby'];
+        if(isset($parameters['groupby']))
+            $groupby = ' GROUP BY '. $parameters['groupby'];
 
         $having = null;
-        if(isset($params['having']))
-            $having = ' HAVING '. $params['having'];
+        if(isset($parameters['having']))
+            $having = ' HAVING '. $parameters['having'];
 
         $orderby = null;
-        if(isset($params['orderby']))
-            $orderby = ' ORDER BY '. $params['orderby'];
+        if(isset($parameters['orderby']))
+            $orderby = ' ORDER BY '. $parameters['orderby'];
 
         $limit = null;
-        if(isset($params['limit']))
-            $groupby = ' LIMIT '. $params['limit'];
+        if(isset($parameters['limit']))
+            $limit = ' LIMIT '. $parameters['limit'];
 
         $fetchStyle = PDO::FETCH_ASSOC;
-        if(isset($params['fetchStyle'])) {
-            switch( $params['fetchStyle'] ) {
+        if(isset($parameters['fetchStyle'])) {
+            switch($parameters['fetchStyle']) {
                 case 'assoc':			$fetchStyle = PDO::FETCH_ASSOC; 	break;
                 case 'num':				$fetchStyle = PDO::FETCH_NUM; 		break;
                 case 'singleColumn':	$fetchStyle = PDO::FETCH_COLUMN; 	break;
@@ -81,12 +85,16 @@ class MyDB {
         }
 
         try {
-            $sql = 'SELECT '. implode(',', (array)$columns). ' FROM '. $tablename. $where. $groupby. $having. $orderby. $limit;
+            $sql = 'SELECT '. implode(',', (array)$columns). ' FROM '. $tablename.
+                $where. $groupby. $having. $orderby. $limit;
+
             $query = self::$DB->prepare($sql);
-            $query->execute($params['where']);
+            $query->execute($parameters['where']);
+
             $result = $query->fetchAll($fetchStyle);
-            return $result;
-        } catch (PDOException $e) {
+            return json_encode($result);
+
+        } catch(PDOException $e) {
             return $e->getMessage();
         }
     }
@@ -95,6 +103,7 @@ class MyDB {
         try {
             $query = self::$DB->prepare('INSERT INTO '. $tablename. ' ('. self::implode_key(',', $data ).
                 ') VALUES (:'. self::implode_key(',:', $data). ')');
+
             return $query->execute($data);
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -107,7 +116,6 @@ class MyDB {
                 $where[$key] = self::$DB->quote($value);
             }
 
-            //array_map()函数将用户自定义函数作用到数组中的每个值上，并返回用户自定义函数作用后的带有新值的数组。
             $where_arr = implode(' AND ', array_map(
                 create_function('$key,$value','return $key.\' = \'.$value;'),
                 array_keys($where), array_values($where)
@@ -130,12 +138,12 @@ class MyDB {
                 $sql .= $key . ' = :' . $key . ',';
             $sql = substr_replace($sql,'',-1);
 
-            foreach ($where as $key=>$value) {
+            foreach ((array)$where as $key=>$value) {
                 $where[$key] = self::$DB->quote($value);
             }
             $where_arr = implode(' AND ', array_map(
                 create_function('$key,$value','return $key.\' = \'.$value;'),
-                array_keys($where), array_values($where)
+                array_keys((array)$where), array_values((array)$where)
             ));
             $sql .= ' WHERE '. $where_arr;
 

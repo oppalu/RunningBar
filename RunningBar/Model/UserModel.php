@@ -39,4 +39,16 @@ class UserModel {
         );
         return $result;
     }
+
+    function test() {
+        $result = MyDB::select(
+            'user',
+            'username',
+            array(
+                'orderBy'=>'userid DESC'
+            )
+        );
+        return $result;
+    }
+
 }
