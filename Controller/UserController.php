@@ -21,10 +21,12 @@ $app->post('/register',function (Request $request, Response $response, $args) us
     if($result == 1) {
         session_start();
         $_SESSION['user'] = $username;
-        $response->getBody()->write("<script>alert('注册成功!');</script>");
+        $response->getBody()->write(
+            "<script>alert('注册成功!');</script>"
+        );
         return $this->view->render($response,'sportdata.php');
-    } else {
-        $response->getBody()->write("<script>alert('该用户信息已存在!'); history.go(-1);</script>");
+    } else{
+        $response->getBody()->write("<script>alert('信息输入有误!'); history.go(-1);</script>");
         return $response;
     }
 });
@@ -36,14 +38,19 @@ $app->post('/login',function (Request $request, Response $response, $args) use($
     $result = $user->login($username,$password);
     if($result == 1) {
         session_start();
-        $_SESSION['user'] = $username;
-        $response->getBody()->write("<script>alert('登录成功!');</script>");
+        $_SESSION['user'] = $user->getUserId($username);
+//        $response->getBody()->write("<script>alert('登录成功!');</script>");
         return $this->view->render($response,'sportdata.php');
     } else {
         $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
         return $response;
     }
 });
+
+$app->get('/userinfo',function (Request $request, Response $response,$args) use($user) {
+
+});
+
 
 $app->get('/test',function (Request $request, Response $response,$args) use($user) {
     $result = $user->showUsers();
