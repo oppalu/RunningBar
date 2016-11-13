@@ -11,7 +11,7 @@ require 'MyDB.php';
 class UserModel {
 
     function __construct() {
-        print_r(MyDB::initialize());
+        MyDB::initialize();
         date_default_timezone_set("Asia/Shanghai");
     }
 
@@ -50,5 +50,4 @@ class UserModel {
             '*'
         );
     }
-
 }

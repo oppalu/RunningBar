@@ -21,7 +21,7 @@
 
     <div class="login-box-body">
         <p class="login-msg">登录</p>
-        <form method="post" action="sportdata.php">
+        <form method="post" action="/login">
             <div class="form-group has-feedback">
                 <input name="username" type="text" class="form-control" placeholder="用户名">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -34,7 +34,7 @@
                 <div class="col-xs-7">
                     <a href="#">忘记密码</a>
                     &nbsp; | &nbsp;
-                    <a href="signup.php" class="text-center">没有账号?</a>
+                    <a href="register.php" class="text-center">没有账号?</a>
                 </div>
 
                 <div class="col-xs-5">
