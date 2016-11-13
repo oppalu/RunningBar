@@ -37,11 +37,11 @@
                         <div class="tab-content">
                             <!--个人信息tab界面-->
                             <div class="tab-pane active" id="info">
-                                <form class="form-horizontal">
+                                <form method="post" action="/user/info" class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">头像</label>
                                         <div class="col-sm-2 pull-left image">
-                                            <img src="../public/img/avatar.png" width="80%" height="80%" class="img-circle" alt="User Image">
+                                            <img src="../public/img/avatar.png" width="80%" height="80%" class="img-circle">
                                         </div>
                                     </div>
 
@@ -55,9 +55,9 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">性别</label>
                                         <div class="col-sm-8">
-                                            <select>
-                                                <option value="male">男</option>
-                                                <option value="female">女</option>
+                                            <select name="sex">
+                                                <option value="男">男</option>
+                                                <option value="女">女</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,7 +65,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">体重</label>
                                         <div class="col-sm-1">
-                                            <input type="text" class="form-control" id="weight" value="47" placeholder="当前体重">
+                                            <input name="weight" type="text" class="form-control" id="weight" value="47" placeholder="当前体重">
                                         </div>
                                         <label class="control-label">kg</label>
                                     </div>
@@ -73,26 +73,26 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">生日</label>
                                         <div class="col-sm-3">
-                                            <input type="date" value="1989-04-18">
+                                            <input name="birth" type="date">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">所在地</label>
                                         <div class="col-sm-3">
-                                            <input type="text" class="form-control" value="江苏徐州" id="location" placeholder="所在地">
+                                            <input type="text" class="form-control" value="江苏徐州" name="location" placeholder="所在地">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">兴趣</label>
                                         <div class="col-sm-3">
-                                            <select>
-                                                <option value="run">跑步</option>
-                                                <option value="swim">游泳</option>
-                                                <option value="fit">健身</option>
-                                                <option value="yoga">瑜伽</option>
-                                                <option value="bike">骑行</option>
+                                            <select name="interest">
+                                                <option value="跑步">跑步</option>
+                                                <option value="游泳">游泳</option>
+                                                <option value="健身">健身</option>
+                                                <option value="瑜伽">瑜伽</option>
+                                                <option value="骑行">骑行</option>
                                             </select>
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">运动宣言</label>
                                         <div class="col-sm-3">
-                                            <textarea class="textarea" placeholder="添加宣言让大家认识你" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            <textarea class="textarea" name="slogen" placeholder="添加宣言让大家认识你" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                         </div>
                                     </div>
 
@@ -115,68 +115,31 @@
                             <div class="tab-pane" id="account">
                                 <div style="width: 50%" class="col-md-offset-2">
                                     <h4 class="col-sm-offset-2">修改密码</h4>
-                                    <form class="form-horizontal">
+                                    <form method="post" action="/user/account" class="form-horizontal">
                                         <div class="form-group">
                                             <label class="col-sm-offset-2 col-sm-4 control-label">当前密码</label>
                                             <div class="col-sm-6">
-                                                <input type="password" class="form-control" id="current_pwd">
+                                                <input type="password" class="form-control" name="current_pwd">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-offset-2 col-sm-4 control-label">新密码</label>
                                             <div class="col-sm-6">
-                                                <input type="password" class="form-control" id="new_pwd">
+                                                <input type="password" class="form-control" name="new_pwd">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-offset-2 col-sm-4 control-label">重复新密码</label>
                                             <div class="col-sm-6">
-                                                <input type="password" class="form-control" id="repeat_pwd">
+                                                <input type="password" class="form-control" name="repeat_pwd">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-sm-offset-6 col-sm-4">
                                                 <button type="submit" class="btn btn-danger">修改密码</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <hr size="1">
-
-                                <div style="width: 50%" class="col-md-offset-2">
-                                    <h4 class="col-sm-offset-2">修改绑定手机号</h4>
-                                    <form class="form-horizontal">
-                                        <div class="form-group">
-                                            <label class="col-sm-offset-2 col-sm-4 control-label">当前手机号</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control" id="current_num">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-offset-2 col-sm-4 control-label">新手机号</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control" id="new_num">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-offset-2 col-sm-4 control-label">输入验证码</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="confirm">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <button type="submit" class="btn btn-primary btn-block btn-flat">获取验证码</button>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-6 col-sm-4">
-                                                <button type="submit" class="btn btn-danger">修改手机号</button>
                                             </div>
                                         </div>
                                     </form>

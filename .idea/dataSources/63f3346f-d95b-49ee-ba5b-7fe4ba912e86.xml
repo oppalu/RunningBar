@@ -264,13 +264,16 @@
       <mandatory>1</mandatory>
       <data-type>INT(0,-1)|4</data-type>
     </column>
-    <index id="81" parent="13" name="sqlite_autoindex_user_1">
+    <column id="81" parent="13" name="weight">
+      <data-type>REAL(0,-1)|6</data-type>
+    </column>
+    <index id="82" parent="13" name="sqlite_autoindex_user_1">
       <name-surrogate>1</name-surrogate>
       <columns>username</columns>
       <desc-columns></desc-columns>
       <unique>1</unique>
     </index>
-    <key id="82" parent="13">
+    <key id="83" parent="13">
       <columns>userid</columns>
       <primary>1</primary>
     </key>

@@ -64,8 +64,37 @@ class UserModel {
         );
     }
 
+    function updateUser($username,$sex,$weight,$birth,$location,$interest,$slogen) {
+        return MyDB::update(
+            'user',
+            array(
+                'sex'=>$sex,
+                'weight'=>$weight,
+                'birth'=>$birth,
+                'location'=>$location,
+                'interest'=>$interest,
+                'slogen'=>$slogen
+            ),
+            array(
+                'username'=>$username
+            )
+        );
+    }
+
+    function updatePassword($username,$password) {
+        return MyDB::update(
+            'user',
+            array(
+                'password'=>$password
+            ),
+            array(
+                'username'=>$username
+            )
+        );
+    }
+
     function getUserId($username) {
-        return MyDB::select(
+        $temp =  MyDB::select(
             'user',
             'userid',
             array(
@@ -74,5 +103,7 @@ class UserModel {
                 )
             )
         );
+        $result = json_decode($temp,TRUE);
+        return $result[0]['userid'];
     }
 }

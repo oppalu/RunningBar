@@ -14,6 +14,8 @@
     <script src="../public/js/jquery.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
+    <script src="../public/js/echarts.min.js"></script>
+    <script src="../public/js/analyse.js"></script>
 
 </head>
 <body class="skin-blue sidebar-mini">

@@ -21,10 +21,9 @@ $app->post('/register',function (Request $request, Response $response, $args) us
     if($result == 1) {
         session_start();
         $_SESSION['user'] = $username;
-        $response->getBody()->write(
-            "<script>alert('注册成功!');</script>"
-        );
-        return $this->view->render($response,'sportdata.php');
+        $_SESSION['userid'] = $user->getUserId($username);
+        $response->getBody()->write("<script>alert('注册成功!');</script>");
+        return $this->view->render($response,'userinfo.php');
     } else{
         $response->getBody()->write("<script>alert('信息输入有误!'); history.go(-1);</script>");
         return $response;
@@ -38,7 +37,8 @@ $app->post('/login',function (Request $request, Response $response, $args) use($
     $result = $user->login($username,$password);
     if($result == 1) {
         session_start();
-        $_SESSION['user'] = $user->getUserId($username);
+        $_SESSION['user'] = $username;
+        $_SESSION['userid'] = $user->getUserId($username);
 //        $response->getBody()->write("<script>alert('登录成功!');</script>");
         return $this->view->render($response,'sportdata.php');
     } else {
@@ -47,19 +47,68 @@ $app->post('/login',function (Request $request, Response $response, $args) use($
     }
 });
 
-$app->get('/userinfo',function (Request $request, Response $response,$args) use($user) {
-
+$app->get('/user/show',function (Request $request, Response $response,$args) use($user) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        $userid = $_SESSION['userid'];
+        $result = $user->getUserInfo($userid);
+        return $result;
+    } else {
+        return $this->view->render($response, 'login.html');
+    }
 });
 
+$app->post('/user/info',function (Request $request, Response $response, $args) use($user){
+    session_start();
+    if (isset($_SESSION['user'])) {
+        $data = $request->getParsedBody();
+        $username = $_SESSION['user'];
+        $sex = filter_var($data['sex'], FILTER_SANITIZE_STRING);
+        $weight = filter_var($data['weight'], FILTER_SANITIZE_STRING);
+        $birth = filter_var($data['birth'], FILTER_SANITIZE_STRING);
+        $location = filter_var($data['location'], FILTER_SANITIZE_STRING);
+        $interest = filter_var($data['interest'], FILTER_SANITIZE_STRING);
+        $slogen = filter_var($data['slogen'], FILTER_SANITIZE_STRING);
 
-$app->get('/test',function (Request $request, Response $response,$args) use($user) {
-    $result = $user->showUsers();
-
-    if($result) {
-        $response = $response->withStatus(200)->withHeader('Content-type', 'application/json');
-        $response->getBody()->write(json_encode(
-            $result
-        ));
+        $result = $user->updateUser($username,$sex,$weight,$birth,$location,$interest,$slogen);
+        if ($result == 1) {
+            $response->getBody()->write("<script>alert('更新成功!');history.go(-1);</script>");
+        } else {
+            $response->getBody()->write("<script>alert('更新失败!');history.go(-1); </script>");
+            return $response;
+        }
+    } else {
+        return $this->view->render($response, 'login.php');
     }
-    return $response;
+});
+
+$app->post('/user/account',function (Request $request, Response $response, $args) use($user){
+    session_start();
+    if (isset($_SESSION['user'])) {
+        $data = $request->getParsedBody();
+        $username = $_SESSION['user'];
+        $current = filter_var($data['current_pwd'], FILTER_SANITIZE_STRING);
+        $new = filter_var($data['new_pwd'], FILTER_SANITIZE_STRING);
+        $repeat = filter_var($data['repeat_pwd'], FILTER_SANITIZE_STRING);
+
+        if($new != $repeat) {
+            $response->getBody()->write("<script>alert('两次新密码输入不一致!');history.go(-1); </script>");
+            return $response;
+        }
+        $temp = $user->login($username,$current);
+        if($temp == 1) {
+            $result = $user->updatePassword($username,$new);
+            if ($result == 1) {
+                $response->getBody()->write("<script>alert('更新成功!');history.go(-1);</script>");
+            } else {
+                $response->getBody()->write("<script>alert('更新失败!');history.go(-1); </script>");
+                return $response;
+            }
+        } else {
+            $response->getBody()->write("<script>alert('原密码输入错误!');history.go(-1); </script>");
+            return $response;
+        }
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
 });
