@@ -25,9 +25,4 @@ class UserController {
         $real = $temp[0]['password'];
         return $real == $password;
     }
-
-    function test() {
-
-        return $this->user->test();
-    }
 }
