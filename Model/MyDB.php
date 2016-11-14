@@ -74,16 +74,6 @@ class MyDB {
         if(isset($parameters['limit']))
             $limit = ' LIMIT '. $parameters['limit'];
 
-        $fetchStyle = PDO::FETCH_ASSOC;
-        if(isset($parameters['fetchStyle'])) {
-            switch($parameters['fetchStyle']) {
-                case 'assoc':			$fetchStyle = PDO::FETCH_ASSOC; 	break;
-                case 'num':				$fetchStyle = PDO::FETCH_NUM; 		break;
-                case 'singleColumn':	$fetchStyle = PDO::FETCH_COLUMN; 	break;
-                default:				$fetchStyle = PDO::FETCH_ASSOC; 	break;
-            }
-        }
-
         try {
             $sql = 'SELECT '. implode(',', (array)$columns). ' FROM '. $tablename.
                 $where. $groupby. $having. $orderby. $limit;
@@ -91,7 +81,10 @@ class MyDB {
             $query = self::$DB->prepare($sql);
             $query->execute($parameters['where']);
 
-            $result = $query->fetchAll($fetchStyle);
+            if(isset($parameters['single']))
+                $result = $query->fetch();
+            else
+                $result = $query->fetchAll();
             return json_encode($result);
 
         } catch(PDOException $e) {

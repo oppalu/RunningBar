@@ -39,7 +39,6 @@ $app->post('/login',function (Request $request, Response $response, $args) use($
         session_start();
         $_SESSION['user'] = $username;
         $_SESSION['userid'] = $user->getUserId($username);
-//        $response->getBody()->write("<script>alert('登录成功!');</script>");
         return $this->view->render($response,'sportdata.php');
     } else {
         $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
@@ -61,21 +60,30 @@ $app->get('/user/show',function (Request $request, Response $response,$args) use
 $app->post('/user/info',function (Request $request, Response $response, $args) use($user){
     session_start();
     if (isset($_SESSION['user'])) {
-        $data = $request->getParsedBody();
-        $username = $_SESSION['user'];
-        $sex = filter_var($data['sex'], FILTER_SANITIZE_STRING);
-        $weight = filter_var($data['weight'], FILTER_SANITIZE_STRING);
-        $birth = filter_var($data['birth'], FILTER_SANITIZE_STRING);
-        $location = filter_var($data['location'], FILTER_SANITIZE_STRING);
-        $interest = filter_var($data['interest'], FILTER_SANITIZE_STRING);
-        $slogen = filter_var($data['slogen'], FILTER_SANITIZE_STRING);
 
-        $result = $user->updateUser($username,$sex,$weight,$birth,$location,$interest,$slogen);
-        if ($result == 1) {
-            $response->getBody()->write("<script>alert('更新成功!');history.go(-1);</script>");
-        } else {
-            $response->getBody()->write("<script>alert('更新失败!');history.go(-1); </script>");
+        if($_FILES['file']['error'] > 0) {
+            $response->getBody()->write("<script>alert('上传头像失败!');history.go(-1); </script>");
             return $response;
+        } else {
+            $target = "public/img/upload/" . $_FILES['file']['name'];
+            if(move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
+                $data = $request->getParsedBody();
+                $username = $_SESSION['user'];
+                $sex = filter_var($data['sex'], FILTER_SANITIZE_STRING);
+                $weight = filter_var($data['weight'], FILTER_SANITIZE_STRING);
+                $birth = filter_var($data['birth'], FILTER_SANITIZE_STRING);
+                $location = filter_var($data['location'], FILTER_SANITIZE_STRING);
+                $interest = filter_var($data['interest'], FILTER_SANITIZE_STRING);
+                $slogen = filter_var($data['slogen'], FILTER_SANITIZE_STRING);
+
+                $result = $user->updateUser($username,$target,$sex,$weight,$birth,$location,$interest,$slogen);
+                if ($result == 1) {
+                    $response->getBody()->write("<script>alert('更新成功!');history.go(-1);</script>");
+                } else {
+                    $response->getBody()->write("<script>alert('更新失败!');history.go(-1); </script>");
+                    return $response;
+                }
+            }
         }
     } else {
         return $this->view->render($response, 'login.php');
@@ -112,3 +120,5 @@ $app->post('/user/account',function (Request $request, Response $response, $args
         return $this->view->render($response, 'login.php');
     }
 });
+
+

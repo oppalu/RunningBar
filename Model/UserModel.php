@@ -59,16 +59,18 @@ class UserModel {
             array(
                 'where'=>array(
                     'userid'=>$userid
-                )
+                ),
+                'single'=>'true'
             )
         );
     }
 
-    function updateUser($username,$sex,$weight,$birth,$location,$interest,$slogen) {
+    function updateUser($username,$avatar,$sex,$weight,$birth,$location,$interest,$slogen) {
         return MyDB::update(
             'user',
             array(
                 'sex'=>$sex,
+                'avatar'=>$avatar,
                 'weight'=>$weight,
                 'birth'=>$birth,
                 'location'=>$location,

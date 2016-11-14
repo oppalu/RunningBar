@@ -37,25 +37,29 @@
                         <div class="tab-content">
                             <!--个人信息tab界面-->
                             <div class="tab-pane active" id="info">
-                                <form method="post" action="/user/info" class="form-horizontal">
+                                <form method="post" action="/user/info" enctype="multipart/form-data" class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">头像</label>
                                         <div class="col-sm-2 pull-left image">
-                                            <img src="../public/img/avatar.png" width="80%" height="80%" class="img-circle">
+                                            <img class="img-circle" id="avatar" name="avatar" width="80%" height="80%" style="diplay:none" />
+                                        </div>
+                                        <br>
+                                        <div class="col-sm-4">
+                                            <input type="file" id="file" name="file" id="file" onchange="setImagePreview()">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">用户名</label>
                                         <div class="col-sm-3">
-                                            <input type="text" class="form-control" id="username" value="Jessica" placeholder="用户名">
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">性别</label>
                                         <div class="col-sm-8">
-                                            <select name="sex">
+                                            <select id="sex" name="sex">
                                                 <option value="男">男</option>
                                                 <option value="女">女</option>
                                             </select>
@@ -65,7 +69,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">体重</label>
                                         <div class="col-sm-1">
-                                            <input name="weight" type="text" class="form-control" id="weight" value="47" placeholder="当前体重">
+                                            <input id="weight" name="weight" type="text" class="form-control" placeholder="当前体重">
                                         </div>
                                         <label class="control-label">kg</label>
                                     </div>
@@ -73,21 +77,21 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">生日</label>
                                         <div class="col-sm-3">
-                                            <input name="birth" type="date">
+                                            <input id="birth" name="birth" type="date">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">所在地</label>
                                         <div class="col-sm-3">
-                                            <input type="text" class="form-control" value="江苏徐州" name="location" placeholder="所在地">
+                                            <input type="text" class="form-control" id="location" name="location" placeholder="所在地">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">兴趣</label>
                                         <div class="col-sm-3">
-                                            <select name="interest">
+                                            <select id="interest" name="interest">
                                                 <option value="跑步">跑步</option>
                                                 <option value="游泳">游泳</option>
                                                 <option value="健身">健身</option>
@@ -100,7 +104,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">运动宣言</label>
                                         <div class="col-sm-3">
-                                            <textarea class="textarea" name="slogen" placeholder="添加宣言让大家认识你" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                            <textarea class="textarea" id="slogen" name="slogen" placeholder="添加宣言让大家认识你" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                                         </div>
                                     </div>
 
@@ -158,5 +162,26 @@
 
     <?php include("common/footer.html");?>
 </div>
+<script type="text/javascript">
+    function getUserInfo() {
+        $.getJSON('/user/show',function(data){
+            $('#username').val(data.username);
+            var path = '../'+data.avatar;
+            $('#avatar').attr('src',path);
+            $('#sex').val(data.sex);
+            $('#weight').val(data.weight);
+            $('#birth').val(data.birth);
+            $('#location').val(data.location);
+            $('#interest').val(data.interest);
+            $('#slogen').val(data.slogen);
+        });
+    }
+    function setImagePreview() {
+        var docObj = document.getElementById("file");
+        var preview = document.getElementById("avatar");
+        preview.src = window.URL.createObjectURL(docObj.files[0]);
+    }
+    window.onload = getUserInfo;
+</script>
 </body>
 </html>
