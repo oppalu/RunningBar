@@ -6,7 +6,7 @@
  * Time: 15:09
  */
 
-require 'MyDB.php';
+require_once 'MyDB.php';
 
 class UserModel {
 

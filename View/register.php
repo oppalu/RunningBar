@@ -14,14 +14,14 @@
 <body class="login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="/index.php"><b>Running </b>Bar</a>
+        <a href="/"><b>Running </b>Bar</a>
         <br>
         <p class="login-sublogo">奔跑遇见更好的你</p>
     </div>
 
     <div class="login-box-body">
         <p class="login-msg">注册账号</p>
-        <form action="/register" method="post">
+        <form action="/userinfo" method="post">
             <div class="form-group has-feedback">
                 <input name="phone" type="text" class="form-control" placeholder="手机号">
                 <span class="glyphicon glyphicon-phone form-control-feedback"></span>
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-xs-6">
                     已有账号?&nbsp;
-                    <a href="login.php" class="text-center">[登录]</a>
+                    <a href="/login" class="text-center">[登录]</a>
                 </div>
                 <div class="col-xs-6">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">注册</button>

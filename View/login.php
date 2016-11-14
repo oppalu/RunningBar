@@ -14,14 +14,14 @@
 <body class="login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="/index.php"><b>Running </b>Bar</a>
+        <a href="/"><b>Running </b>Bar</a>
         <br>
         <p class="login-sublogo">奔跑遇见更好的你</p>
     </div>
 
     <div class="login-box-body">
         <p class="login-msg">登录</p>
-        <form method="post" action="/login">
+        <form method="post" action="/homepage">
             <div class="form-group has-feedback">
                 <input name="username" type="text" class="form-control" placeholder="用户名">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -32,9 +32,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-7">
-                    <a href="#">忘记密码</a>
-                    &nbsp; | &nbsp;
-                    <a href="register.php" class="text-center">没有账号?</a>
+                    <a href="/register" class="text-center">没有账号?</a>
                 </div>
 
                 <div class="col-xs-5">

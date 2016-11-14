@@ -126,5 +126,35 @@
 
     <?php include("common/footer.html");?>
 </div>
+<script type="text/javascript">
+    function getFollower() {
+        $.getJSON('/getfollower',function(data){
+            $('#username').val(data.username);
+            var path = '../'+data.avatar;
+            $('#avatar').attr('src',path);
+            $('#sex').val(data.sex);
+            $('#weight').val(data.weight);
+            $('#birth').val(data.birth);
+            $('#location').val(data.location);
+            $('#interest').val(data.interest);
+            $('#slogen').val(data.slogen);
+        });
+    }
+    function getFollowing() {
+        $.getJSON('/getfollowing',function(data){
+            $('#username').val(data.username);
+            var path = '../'+data.avatar;
+            $('#avatar').attr('src',path);
+            $('#sex').val(data.sex);
+            $('#weight').val(data.weight);
+            $('#birth').val(data.birth);
+            $('#location').val(data.location);
+            $('#interest').val(data.interest);
+            $('#slogen').val(data.slogen);
+        });
+    }
+    window.onload = getFollower;
+    window.onload = getFollowing;
+</script>
 </body>
 </html>

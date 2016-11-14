@@ -33,7 +33,7 @@
         </h4>
         </p>
         <div class="center-block col-md-6 col-sm-6" style="margin: 7% auto;">
-            <a href="View/login.php" class="center-block">
+            <a href="/login" class="center-block">
                 <button class="btn btn-app btn-block btn-flat" style="font-size: large">
                     开启你的运动之旅
                 </button>

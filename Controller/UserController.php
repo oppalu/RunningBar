@@ -12,7 +12,55 @@ require 'Model/UserModel.php';
 
 $user = new UserModel();
 
-$app->post('/register',function (Request $request, Response $response, $args) use($user){
+$app->get('/login',function (Request $request, Response $response,$args) use($user) {
+    return $this->view->render($response, 'login.php');
+});
+
+$app->get('/register',function (Request $request, Response $response,$args) use($user) {
+    return $this->view->render($response, 'register.php');
+});
+
+$app->get('/userinfo',function (Request $request, Response $response,$args) use($user) {
+    return $this->view->render($response, 'userinfo.php');
+});
+
+$app->get('/user/show',function (Request $request, Response $response,$args) use($user) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        $userid = $_SESSION['userid'];
+        $result = $user->getUserInfo($userid);
+        return $result;
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->get('/logout',function (Request $request, Response $response,$args) use($user) {
+    session_start();
+    $_SESSION['user'] = null;
+    $_SESSION['userid'] = null;
+    return $this->view->render($response, 'login.php');
+});
+
+//登录使用的post方法
+$app->post('/homepage',function (Request $request, Response $response, $args) use($user){
+    $data = $request->getParsedBody();
+    $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
+    $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
+    $result = $user->login($username,$password);
+    if($result == 1) {
+        session_start();
+        $_SESSION['user'] = $username;
+        $_SESSION['userid'] = $user->getUserId($username);
+        return $this->view->render($response,'sportdata.php');
+    } else {
+        $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
+        return $response;
+    }
+});
+
+//注册使用的post方法
+$app->post('/userinfo',function (Request $request, Response $response, $args) use($user){
     $data = $request->getParsedBody();
     $phone = filter_var($data['phone'], FILTER_SANITIZE_STRING);
     $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
@@ -30,33 +78,7 @@ $app->post('/register',function (Request $request, Response $response, $args) us
     }
 });
 
-$app->post('/login',function (Request $request, Response $response, $args) use($user){
-    $data = $request->getParsedBody();
-    $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
-    $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
-    $result = $user->login($username,$password);
-    if($result == 1) {
-        session_start();
-        $_SESSION['user'] = $username;
-        $_SESSION['userid'] = $user->getUserId($username);
-        return $this->view->render($response,'sportdata.php');
-    } else {
-        $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
-        return $response;
-    }
-});
-
-$app->get('/user/show',function (Request $request, Response $response,$args) use($user) {
-    session_start();
-    if (isset($_SESSION['userid'])) {
-        $userid = $_SESSION['userid'];
-        $result = $user->getUserInfo($userid);
-        return $result;
-    } else {
-        return $this->view->render($response, 'login.html');
-    }
-});
-
+//修改个人信息使用的post方法
 $app->post('/user/info',function (Request $request, Response $response, $args) use($user){
     session_start();
     if (isset($_SESSION['user'])) {
@@ -90,6 +112,7 @@ $app->post('/user/info',function (Request $request, Response $response, $args) u
     }
 });
 
+//修改密码使用的post方法
 $app->post('/user/account',function (Request $request, Response $response, $args) use($user){
     session_start();
     if (isset($_SESSION['user'])) {
