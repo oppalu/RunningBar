@@ -129,15 +129,16 @@
 <script type="text/javascript">
     function getFollower() {
         $.getJSON('/getfollower',function(data){
-            $('#username').val(data.username);
-            var path = '../'+data.avatar;
-            $('#avatar').attr('src',path);
-            $('#sex').val(data.sex);
-            $('#weight').val(data.weight);
-            $('#birth').val(data.birth);
-            $('#location').val(data.location);
-            $('#interest').val(data.interest);
-            $('#slogen').val(data.slogen);
+            var ul = document.getElementById(obj);
+
+            //添加 li
+            var li = document.createElement("li");
+
+            //设置 li 属性，如 id
+            li.setAttribute("id", "newli");
+
+            li.innerHTML = "js 动态添加li";
+            ul.appendChild(li);
         });
     }
     function getFollowing() {
