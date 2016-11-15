@@ -17,12 +17,19 @@ class FriendModel {
     //获得粉丝,待完成,对每个获得简略信息
     function getFollowers($userid) {
         return MyDB::select(
-            'follower',
-            'fanid',
+            'follower,user',
+            array(
+                'username',
+                'sex',
+                'slogen',
+                'avatar',
+                'location'
+            ),
             array(
                 'where'=>array(
-                    'userid'=>$userid
-                )
+                    'follower.userid'=>$userid
+                ),
+                'whereother'=>'user.userid=follower.fanid'
             )
         );
     }
@@ -30,12 +37,19 @@ class FriendModel {
     //获得偶像
     function getFollowings($userid) {
         return MyDB::select(
-            'follower',
-            'userid',
+            'follower,user',
+            array(
+                'username',
+                'sex',
+                'slogen',
+                'avatar',
+                'location'
+            ),
             array(
                 'where'=>array(
-                    'fanid'=>$userid
-                )
+                    'follower.fanid'=>$userid
+                ),
+                'whereother'=>'user.userid=follower.userid'
             )
         );
     }

@@ -74,10 +74,13 @@ class MyDB {
         if(isset($parameters['limit']))
             $limit = ' LIMIT '. $parameters['limit'];
 
+        $whereother = null;
+        if(isset($parameters['whereother']))
+            $whereother = ' AND ' . $parameters['whereother'];
+
         try {
             $sql = 'SELECT '. implode(',', (array)$columns). ' FROM '. $tablename.
-                $where. $groupby. $having. $orderby. $limit;
-
+                $where. $whereother. $groupby. $having. $orderby. $limit;
             $query = self::$DB->prepare($sql);
             $query->execute($parameters['where']);
 
