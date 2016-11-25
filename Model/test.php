@@ -10,5 +10,5 @@ require 'FriendModel.php';
 
 $friend = new FriendModel();
 
-$result = $friend->getFollowers(2);
+$result = $friend->getFollowers(9);
 print_r($result);

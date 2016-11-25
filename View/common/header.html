@@ -1,3 +1,17 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        getSimpleInfo();
+    });
+    function getSimpleInfo() {
+        $.getJSON('/user/show',function(data){
+            $('#username').text(data.username);
+            $('#username1').text(data.username);
+            var path = '../'+data.avatar;
+            $('#avatar').attr('src',path);
+            $('#avatar1').attr('src',path);
+        });
+    }
+</script>
 <header class="main-header">
     <!--logo-->
     <a href="../../index.php" class="logo">
@@ -140,15 +154,3 @@
         </ul>
     </section>
 </aside>
-<script type="text/javascript">
-    function getUserInfo() {
-        $.getJSON('/user/show',function(data){
-            $('#username').text(data.username);
-            $('#username1').text(data.username);
-            var path = '../'+data.avatar;
-            $('#avatar').attr('src',path);
-            $('#avatar1').attr('src',path);
-        });
-    }
-    window.onload = getUserInfo;
-</script>

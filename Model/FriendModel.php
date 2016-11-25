@@ -14,7 +14,6 @@ class FriendModel {
         date_default_timezone_set("Asia/Shanghai");
     }
 
-    //获得粉丝,待完成,对每个获得简略信息
     function getFollowers($userid) {
         return MyDB::select(
             'follower,user',

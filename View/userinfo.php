@@ -15,6 +15,30 @@
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getUserInfo();
+        });
+        function getUserInfo() {
+            $.getJSON('/user/show',function(data){
+                $('#user_name').val(data.username);
+                var path = '../'+data.avatar;
+                $('#userimage').attr('src',path);
+                $('#sex').val(data.sex);
+                $('#weight').val(data.weight);
+                $('#birth').val(data.birth);
+                $('#location').val(data.location);
+                $('#interest').val(data.interest);
+                $('#slogen').val(data.slogen);
+            });
+        }
+        function setImagePreview() {
+            var docObj = document.getElementById("file");
+            var preview = document.getElementById("userimage");
+            preview.src = window.URL.createObjectURL(docObj.files[0]);
+        }
+    </script>
+
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
@@ -41,7 +65,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">头像</label>
                                         <div class="col-sm-2 pull-left image">
-                                            <img class="img-circle" id="avatar" name="avatar" width="80%" height="80%" style="diplay:none" />
+                                            <img class="img-circle" id="userimage" name="userimage" width="80%" height="80%" style="diplay:none" />
                                         </div>
                                         <br>
                                         <div class="col-sm-4">
@@ -52,7 +76,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">用户名</label>
                                         <div class="col-sm-3">
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="用户名">
+                                            <input type="text" class="form-control" id="user_name" name="user_name" placeholder="用户名">
                                         </div>
                                     </div>
 
@@ -68,7 +92,7 @@
 
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">体重</label>
-                                        <div class="col-sm-1">
+                                        <div class="col-sm-2">
                                             <input id="weight" name="weight" type="text" class="form-control" placeholder="当前体重">
                                         </div>
                                         <label class="control-label">kg</label>
@@ -159,29 +183,7 @@
             <!--row-->
         </section>
     </div>
-
     <?php include("common/footer.html");?>
 </div>
-<script type="text/javascript">
-    function getUserInfo() {
-        $.getJSON('/user/show',function(data){
-            $('#username').val(data.username);
-            var path = '../'+data.avatar;
-            $('#avatar').attr('src',path);
-            $('#sex').val(data.sex);
-            $('#weight').val(data.weight);
-            $('#birth').val(data.birth);
-            $('#location').val(data.location);
-            $('#interest').val(data.interest);
-            $('#slogen').val(data.slogen);
-        });
-    }
-    function setImagePreview() {
-        var docObj = document.getElementById("file");
-        var preview = document.getElementById("avatar");
-        preview.src = window.URL.createObjectURL(docObj.files[0]);
-    }
-    window.onload = getUserInfo;
-</script>
 </body>
 </html>
