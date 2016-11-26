@@ -10,7 +10,7 @@
 class MyDB {
     private static $DB;
 
-    static function initialize() {
+    public static function initialize() {
         try {
             if(self::$DB == null) {
                 self::$DB = new PDO("sqlite:runningbar.db");

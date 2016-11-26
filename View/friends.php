@@ -18,34 +18,49 @@
     <script type="text/javascript">
         $(document).ready(function () {
             getFollower();
+            getFollowing();
         });
         function getFollower() {
             $.getJSON('/getfollower',function(data){
+                var ul = document.getElementById('follower');
+                $.each(data,function (entryindex,entry) {
+                    var name = entry['username'];
+                    var sex = entry['sex'];
+                    var location = entry['location'];
+                    var slogen = "还没有填写个人简介";
+                    if(entry['slogen'] != null)
+                        slogen = entry['slogen'];
+                    var path = "";
+                    if(entry['avatar'] != null)
+                        path = "../"+entry['avatar'];
+
+                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
+                    single += '<div class="col-sm-2"><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
+                    single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button class="btn btn-info">';
+                    single += '<i class="glyphicon glyphicon-plus"></i>关&nbsp;注</button></div><hr class="col-sm-12" size="10">';
+                    ul.innerHTML += single;
+                })
+            });
+        }
+        function getFollowing() {
+            $.getJSON('/getfollowing',function(data){
                 var ul = document.getElementById('following');
                 $.each(data,function (entryindex,entry) {
-                    var path = "../"+entry['avatar'];
-                    var single = "<li class='col-md-12'><div class='col-sm-1><img style='width: 100%' src='"+path+"' class='img-circle></div></li>";
-//                        </div>
-//                        <div class="col-sm-2">
-//                        <a href="#"><b>Phoebe</b></a><br>
-//                        <label>女</label><br>
-//                        <label>江苏 徐州</label>
-//                    </div>
-//                    <div class="col-sm-7">
-//                        <label>还没有填写个人简介</label>
-//                        </div>
-//                        <div class="col-sm-2">
-//                        <button class="btn btn-info">
-//                        <i class="glyphicon glyphicon-plus"></i>
-//                        取&nbsp;消&nbsp;关&nbsp;注
-//                    </button>
-//                    </div>
-//                    <hr class="col-sm-12" size="10">
-//                        </li>";
+                    var name = entry['username'];
+                    var sex = entry['sex'];
+                    var location = entry['location'];
+                    var slogen = "还没有填写个人简介";
+                    if(entry['slogen'] != null)
+                        slogen = entry['slogen'];
+                    var path = "";
+                    if(entry['avatar'] != null)
+                        path = "../"+entry['avatar'];
+
+                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
+                    single += '<div class="col-sm-2"><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
+                    single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button class="btn btn-info">';
+                    single += '<i class="glyphicon glyphicon-plus"></i>取&nbsp;消&nbsp;关&nbsp;注</button></div><hr class="col-sm-12" size="10">';
                     ul.innerHTML += single;
-////                    li.innerHTML ="<div class='col-sm-1'><img style='width: 100%' class='img-circle' src='"+path+"'></div>"+
-////                        "<div class='col-sm-2'><a href='#'><b>"+entry['username']+"</b></a><br><label>"+entry['sex']+"</label><br><label>"+entry.location+"</label></div>";
-//                    ul.appendChild(li);
                 })
             });
         }
@@ -74,28 +89,7 @@
                             <div class="tab-pane active" id="followings">
                                 <div class="box box-primary">
                                     <div class="box-body">
-                                        <ul id="following">
-<!--                                            <li class="col-md-12">-->
-<!--                                                <div class="col-sm-1">-->
-<!--                                                    <img style="width: 100% " src="../public/img/avatar2.png" class="img-circle">-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-2">-->
-<!--                                                    <a href="#"><b>Phoebe</b></a><br>-->
-<!--                                                    <label>女</label><br>-->
-<!--                                                    <label>江苏 徐州</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-7">-->
-<!--                                                    <label>还没有填写个人简介</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-2">-->
-<!--                                                    <button class="btn btn-info">-->
-<!--                                                        <i class="glyphicon glyphicon-plus"></i>-->
-<!--                                                        取&nbsp;消&nbsp;关&nbsp;注-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                                <hr class="col-sm-12" size="10">-->
-<!--                                            </li>-->
-                                        </ul>
+                                        <ul id="following"></ul>
                                     </div>
                                 </div>
                             </div>
@@ -103,48 +97,7 @@
                             <div class="tab-pane" id="followers">
                                 <div class="box box-primary">
                                     <div class="box-body">
-                                        <ul id="follower">
-<!--                                            <li class="col-md-12">-->
-<!--                                                <div class="col-sm-1">-->
-<!--                                                    <img style="width: 100% " src="../public/img/avatar2.png" class="img-circle">-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-2">-->
-<!--                                                    <a href="#"><b>Phoebe</b></a><br>-->
-<!--                                                    <label>女</label><br>-->
-<!--                                                    <label>江苏 徐州</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-7">-->
-<!--                                                    <label>还没有填写个人简介</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-2">-->
-<!--                                                    <button class="btn btn-info">-->
-<!--                                                        <i class="glyphicon glyphicon-plus"></i>-->
-<!--                                                        &nbsp;关&nbsp;注-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                                <hr class="col-sm-12" size="10">-->
-<!--                                            </li>-->
-<!---->
-<!--                                            <li class="col-md-12">-->
-<!--                                                <div class="col-sm-1">-->
-<!--                                                    <img style="width: 100% " src="../public/img/avatar2.png" class="img-circle">-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-2">-->
-<!--                                                    <a href="#"><b>Phoebe</b></a><br>-->
-<!--                                                    <label>女</label><br>-->
-<!--                                                    <label>江苏 徐州</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-7">-->
-<!--                                                    <label>还没有填写个人简介</label>-->
-<!--                                                </div>-->
-<!--                                                <div class="col-sm-2">-->
-<!--                                                    <button class="btn btn-info">-->
-<!--                                                        <i class="glyphicon glyphicon-plus"></i>-->
-<!--                                                        取&nbsp;消&nbsp;关&nbsp;注-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-                                        </ul>
+                                        <ul id="follower"></ul>
                                     </div>
                                 </div>
                             </div>
