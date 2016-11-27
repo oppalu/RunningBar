@@ -15,6 +15,37 @@
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getFriendPosts();
+        });
+
+        function getFriendPosts() {
+            $.getJSON('/friendpost',function(data){
+                var ul = document.getElementById('friendpost');
+                $.each(data,function (entryindex,entry) {
+                    var fid = entry['id'];
+                    var title = entry['title'];
+                    var content = entry['content'];
+                    var name = entry['username'];
+                    var createtime = entry['createtime'];
+                    var like = entry['like'];
+                    var path = "";
+                    if(entry['avatar'] != null)
+                        path = "../"+entry['avatar'];
+                    var single = '<div class="post clearfix" style="margin: 2%"><div class="user-block"><div class="col-md-1">';
+                    single += '<img style="width: 80%" class="img-circle img-bordered-sm" src="'+path+'"></div><a href="#">'+name+'</a>';
+                    single += '<p style="font-size: 11px" class="description">'+createtime+'</p></div>';
+                    single += '<a style="font-family:Microsoft YaHei;color: #000000;font-size:20px;" href="/Dynamic/'+fid+'">'+title+'</a>';
+                    single += '<p class="product-description">'+content+'</p><ul class="list-inline"><li class="pull-right" style="margin-right: 1%">';
+                    single += '<span style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1">'+like+'</span><span style="font-family:Microsoft YaHei;font-weight:500;font-size:14px;opacity:0.8">个赞</span></li></ul></div>';
+                    ul.innerHTML += single;
+
+                })
+            });
+        }
+    </script>
+
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
@@ -31,82 +62,7 @@
                 <div class="col-md-11 col-sm-11">
                     <div class="box box-default">
                         <div class="box-body">
-                            <div class="post clearfix" style="margin: 2%">
-                                <div class="user-block">
-                                    <div class="col-md-1">
-                                        <img style="width: 80%" class="img-circle img-bordered-sm" src="../public/img/avatar2.png">
-                                    </div>
-                                    <a href="#">Phoebe</a>
-                                    <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
-                                </div>
-                                <a href="postinfo.php" style="font-family:Microsoft YaHei;color: #000000;font-size:20px;">这里是标题</a>
-                                <p class="product-description">这里是内容</p>
-
-                                <ul class="list-inline">
-                                    <li style="margin-left: 1%">
-                                        <a href="#" class="link-black text-sm">
-                                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;赞
-                                        </a>
-                                    </li>
-                                    <li class="pull-right" style="margin-right: 1%">
-                                        <span style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1">2</span>
-                                        <span style="font-family:Microsoft YaHei;font-weight:500;font-size:14px;opacity:0.8">个赞</span>
-                                    </li>
-                                    <li class="pull-right" style="margin-right: 1%">
-                                        <span style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1">5</span>
-                                        <span style="font-family:Microsoft YaHei;font-weight:500;font-size:14px;opacity:0.8">条评论</span>
-                                    </li>
-                                </ul>
-
-                                <form class="form-horizontal">
-                                    <div class="form-group margin-bottom-none">
-                                        <div class="col-sm-10">
-                                            <input class="form-control input-sm" placeholder="回复">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="post clearfix" style="margin: 2%">
-                                <div class="user-block">
-                                    <div class="col-md-1">
-                                        <img style="width: 80%" class="img-circle img-bordered-sm" src="../public/img/avatar2.png">
-                                    </div>
-                                    <a href="#">Phoebe</a>
-                                    <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
-                                </div>
-                                <a href="postinfo.php" style="font-family:Microsoft YaHei;color: #000000;font-size:20px;">这里是标题</a>
-                                <p class="product-description">这里是内容</p>
-
-                                <ul class="list-inline">
-                                    <li style="margin-left: 1%">
-                                        <a href="#" class="link-black text-sm">
-                                            <i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;赞
-                                        </a>
-                                    </li>
-                                    <li class="pull-right" style="margin-right: 1%">
-                                        <span style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1">2</span>
-                                        <span style="font-family:Microsoft YaHei;font-weight:500;font-size:14px;opacity:0.8">个赞</span>
-                                    </li>
-                                    <li class="pull-right" style="margin-right: 1%">
-                                        <span style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1">5</span>
-                                        <span style="font-family:Microsoft YaHei;font-weight:500;font-size:14px;opacity:0.8">条评论</span>
-                                    </li>
-                                </ul>
-
-                                <form class="form-horizontal">
-                                    <div class="form-group margin-bottom-none">
-                                        <div class="col-sm-10">
-                                            <input class="form-control input-sm" placeholder="回复">
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                            <ul id="friendpost"></ul>
                         </div>
                     </div>
                 </div>

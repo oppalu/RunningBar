@@ -18,6 +18,7 @@ class FriendModel {
         return MyDB::select(
             'follower,user',
             array(
+                'user.userid',
                 'username',
                 'sex',
                 'slogen',
@@ -38,6 +39,7 @@ class FriendModel {
         return MyDB::select(
             'follower,user',
             array(
+                'user.userid',
                 'username',
                 'sex',
                 'slogen',
@@ -51,6 +53,45 @@ class FriendModel {
                 'whereother'=>'user.userid=follower.userid'
             )
         );
+    }
+
+    function addFriend($myid,$idolid) {
+        return MyDB::insert(
+            'follower',
+            array(
+                'userid'=>$idolid,
+                'fanid'=>$myid
+            )
+        );
+    }
+
+    function deleteFriend($myid,$idolid) {
+        return MyDB::delete(
+            'follower',
+            array(
+                'userid'=>$idolid,
+                'fanid'=>$myid
+            )
+        );
+    }
+
+    function isFriend($myid,$fanid) {
+        $result = MyDB::select(
+            'follower',
+            '*',
+            array(
+                'where'=>array(
+                    'userid'=>$fanid,
+                    'fanid'=>$myid
+                )
+            )
+        );
+        $array = json_decode($result);
+        if(count($array) == 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
     }
 
 }

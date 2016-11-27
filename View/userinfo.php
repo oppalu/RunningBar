@@ -22,7 +22,10 @@
         function getUserInfo() {
             $.getJSON('/user/show',function(data){
                 $('#user_name').val(data.username);
-                var path = '../'+data.avatar;
+                var path = "";
+                if(data.avatar != null) {
+                    path = '../'+data.avatar;
+                }
                 $('#userimage').attr('src',path);
                 $('#sex').val(data.sex);
                 $('#weight').val(data.weight);
@@ -65,7 +68,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-offset-2 col-sm-2 control-label">头像</label>
                                         <div class="col-sm-2 pull-left image">
-                                            <img class="img-circle" id="userimage" name="userimage" width="80%" height="80%" style="diplay:none" />
+                                            <img class="img-circle" id="userimage" name="userimage" width="70%" height="70%" style="diplay:none" />
                                         </div>
                                         <br>
                                         <div class="col-sm-4">

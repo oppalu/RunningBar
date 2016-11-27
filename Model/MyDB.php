@@ -75,8 +75,13 @@ class MyDB {
             $limit = ' LIMIT '. $parameters['limit'];
 
         $whereother = null;
-        if(isset($parameters['whereother']))
-            $whereother = ' AND ' . $parameters['whereother'];
+        if(isset($parameters['whereother'])) {
+            if($where == null) {
+                $whereother = ' WHERE ' . $parameters['whereother'];
+            } else {
+                $whereother = ' AND ' . $parameters['whereother'];
+            }
+        }
 
         try {
             $sql = 'SELECT '. implode(',', (array)$columns). ' FROM '. $tablename.

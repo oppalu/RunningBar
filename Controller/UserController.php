@@ -144,4 +144,26 @@ $app->post('/user/account',function (Request $request, Response $response, $args
     }
 });
 
-
+$app->get('/search',function (Request $request, Response $response,$args) use($user) {
+    session_start();
+    if (isset($_SESSION['keyword'])) {
+        $temp = json_decode($user->searchUser($_SESSION['keyword']),true);
+        for($i=0;$i<count($temp);$i++) {
+            if($user->isFriend($_SESSION['userid'],$temp[$i]['userid']) == 1) {
+                $temp[$i]['isFriend'] = 1;
+            } else {
+                $temp[$i]['isFriend'] = 0;
+            }
+        }
+        return json_encode($temp);
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+$app->post('/search',function (Request $request, Response $response,$args) use($user) {
+    $data = $request->getParsedBody();
+    $keyword = filter_var($data['inputsearch'], FILTER_SANITIZE_STRING);
+    session_start();
+    $_SESSION['keyword'] = $keyword;
+    return $this->view->render($response, 'search.php');
+});

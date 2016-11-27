@@ -20,8 +20,15 @@ $app->get('/getfollower',function (Request $request, Response $response,$args) u
     session_start();
     if (isset($_SESSION['userid'])) {
         $userid = $_SESSION['userid'];
-        $result = $friend->getFollowers($userid);
-        return $result;
+        $temp = json_decode($friend->getFollowers($userid),true);
+        for($i=0;$i<count($temp);$i++) {
+            if($friend->isFriend($userid,$temp[$i]['userid']) == 1) {
+                $temp[$i]['isFriend'] = 1;
+            } else {
+                $temp[$i]['isFriend'] = 0;
+            }
+        }
+        return json_encode($temp);
     } else {
         return $this->view->render($response, 'login.php');
     }
@@ -31,8 +38,41 @@ $app->get('/getfollowing',function (Request $request, Response $response,$args) 
     session_start();
     if (isset($_SESSION['userid'])) {
         $userid = $_SESSION['userid'];
-        $result = $friend->getFollowings($userid);
-        return $result;
+        return $friend->getFollowings($userid);
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->post('/addFriend',function (Request $request, Response $response,$args) use($friend) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        $userid = $_SESSION['userid'];
+        $friendid = $_POST['friendid'];
+        $result = $friend->addFriend($userid,$friendid);
+        if ($result == 1) {
+            $response->getBody()->write("<script>alert('关注成功!');location.href='".$_SERVER["HTTP_REFERER"]."';</script>");
+        } else {
+            $response->getBody()->write("<script>alert('关注失败!');history.go(-1); </script>");
+            return $response;
+        }
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->post('/deleteFriend',function (Request $request, Response $response,$args) use($friend) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        $userid = $_SESSION['userid'];
+        $friendid = $_POST['friendid'];
+        $result = $friend->deleteFriend($userid,$friendid);
+        if ($result == 1) {
+            $response->getBody()->write("<script>alert('取消关注成功!');location.href='".$_SERVER["HTTP_REFERER"]."';</script>");
+        } else {
+            $response->getBody()->write("<script>alert('取消关注失败!');history.go(-1); </script>");
+            return $response;
+        }
     } else {
         return $this->view->render($response, 'login.php');
     }

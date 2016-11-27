@@ -6,9 +6,22 @@
  * Time: 09:33
  */
 
-require 'FriendModel.php';
+//require 'FriendModel.php';
+//
+//$friend = new FriendModel();
+//
+//$result = $friend->isFriend(9,8);
+//print_r($result);
 
-$friend = new FriendModel();
+//require 'UserModel.php';
+//
+//$user = new UserModel();
+//
+//$result = $user->searchUser('sy');
+//print_r($result);
 
-$result = $friend->getFollowers(9);
+require 'PostModel.php';
+$post = new PostModel();
+
+$result = $post->getPostDetail(2);
 print_r($result);

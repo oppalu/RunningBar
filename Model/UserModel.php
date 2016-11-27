@@ -108,4 +108,34 @@ class UserModel {
         $result = json_decode($temp,TRUE);
         return $result[0]['userid'];
     }
+
+    function searchUser($keyword) {
+        $temp = 'username LIKE \'%'. $keyword. '%\'';
+        return MyDB::select(
+            'user',
+            '*',
+            array(
+                'whereother'=>$temp
+            )
+        );
+    }
+
+    function isFriend($myid,$fanid) {
+        $result = MyDB::select(
+            'follower',
+            '*',
+            array(
+                'where'=>array(
+                    'userid'=>$fanid,
+                    'fanid'=>$myid
+                )
+            )
+        );
+        $array = json_decode($result);
+        if(count($array) == 0) {
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 }

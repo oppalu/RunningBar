@@ -15,6 +15,66 @@
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getPostInfo();
+            getComments();
+        });
+
+        function getPostInfo() {
+            var post = <?PHP echo $_SESSION['postid'] ?>;
+            $.getJSON("/Post/"+post,function(data){
+                var path = "";
+                if(data.avatar != null) {
+                    path = '../'+data.avatar;
+                }
+                $('#detailavatar').attr('src',path);
+                var title = document.getElementById('detailtitle');
+                title.innerHTML = data.title;
+                var content = document.getElementById('detailcontent');
+                content.innerHTML = data.content;
+                var time = document.getElementById('detailtime');
+                time.innerHTML = data.createtime;
+                var name = document.getElementById('detailname');
+                name.innerHTML = data.username;
+                var like = document.getElementById('likenum');
+                like.innerHTML = data.like;
+            });
+        }
+
+        function getComments() {
+            var post = <?PHP echo $_SESSION['postid'] ?>;
+            $.getJSON("/Comment/"+post,function(data){
+                var ul = document.getElementById('comments');
+                $.each(data,function (entryindex,entry) {
+                    var name = entry['username'];
+                    var createtime = entry['createtime'];
+                    var content = entry['content'];
+                    var path = "";
+                    if(entry['avatar'] != null)
+                        path = "../"+entry['avatar'];
+
+                    var single = '<li class="col-md-12"><div class="post clearfix" style="margin: 2%"><div class="user-block">';
+                    single += '<div class="col-md-1"><img style="width: 80%" class="img-circle img-bordered-sm" src="'+path+'"></div>';
+                    single += '<a href="#">'+name+'</a><p style="font-size: 11px" class="description">'+createtime+'</p>';
+                    single += '</div><p>'+content+'</p></div></li>';
+
+                    ul.innerHTML += single;
+                })
+            });
+        }
+
+        function like() {
+            var myForm = document.createElement("form");
+            myForm.method = "post";
+            myForm.action = '/like';
+            document.body.appendChild(myForm);
+            myForm.submit();
+            document.body.removeChild(myForm);
+        }
+
+    </script>
+
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
@@ -29,84 +89,38 @@
                     <div class="post">
                         <div class="user-block">
                             <div class="col-md-1">
-                                <img style="width: 80%" class="img-circle img-bordered-sm" src="../public/img/avatar.png">
+                                <img style="width: 80%" class="img-circle img-bordered-sm" id="detailavatar">
                             </div>
                             <span class="username">
-                                <a href="#">Jessica</a>
+                                <a href="#" id="detailname"></a>
                             </span>
-                            <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
+                            <p style="font-size: 11px" class="description" id="detailtime"></p>
                         </div>
                         <!-- /.user-block -->
-                        <p style="color: #000000" class="h4">测试标题</p>
-                        <p>
-                            测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-                        </p>
+                        <p id="detailtitle" style="color: #000000" class="h4"></p>
+                        <p id="detailcontent"></p>
                         <ul class="list-inline">
                             <li style="margin-left: 1%">
-                                <a href="#" class="link-black text-sm">
-                                    <i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;赞
+                                <a onclick="like()" href="javascript:;" class="link-black text-sm">
+                                    <span id="liketest" class="glyphicon glyphicon-thumbs-up">赞</span>
                                 </a>
                             </li>
                             <li class="pull-right" style="margin-right: 1%">
-                                <span style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1">2</span>
+                                <span id="likenum" style="font-family:Microsoft YaHei;font-weight:400;font-size:17px;opacity:1"></span>
                                 <span style="font-family:Microsoft YaHei;font-weight:500;font-size:14px;opacity:0.8">个赞</span>
                             </li>
                         </ul>
-                        <form class="row">
+                        <form method="post" action="/addComment" class="row">
                             <div class="col-md-10 col-sm-10">
-                                <input class="form-control input-sm" type="text" placeholder="说点什么吧">
+                                <input name="commentcontent" class="form-control input-sm" type="text" placeholder="说点什么吧">
                             </div>
                             <div class="col-md-2 col-sm-2">
                                 <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">提交</button>
                             </div>
                         </form>
                         <hr>
-                        <p class="h4">
-                            评论区
-                        </p>
-                        <!--评论区-->
-                        <div class="post clearfix" style="margin: 2%">
-                            <div class="user-block">
-                                <div class="col-md-1">
-                                    <img style="width: 80%" class="img-circle img-bordered-sm" src="../public/img/avatar2.png">
-                                </div>
-                                <a href="#">Phoebe</a>
-                                <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
-                            </div>
-                            <p>很好这里是评论区</p>
-
-                            <form class="form-horizontal">
-                                <div class="form-group margin-bottom-none">
-                                    <div class="col-sm-10">
-                                        <input class="form-control input-sm" placeholder="回复">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="post clearfix" style="margin: 2%">
-                            <div class="user-block">
-                                <div class="col-md-1">
-                                    <img style="width: 80%" class="img-circle img-bordered-sm" src="../public/img/avatar2.png">
-                                </div>
-                                <a href="#">Phoebe</a>
-                                <p style="font-size: 11px" class="description">2016-10-19 16:00</p>
-                            </div>
-                            <p>很好这里是评论区</p>
-
-                            <form class="form-horizontal">
-                                <div class="form-group margin-bottom-none">
-                                    <div class="col-sm-10">
-                                        <input class="form-control input-sm" placeholder="回复">
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-primary pull-right btn-block btn-sm">发送</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        <p class="h4">评论区</p>
+                        <ul id="comments"></ul>
                     </div>
                 </div>
             </div>

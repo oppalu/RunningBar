@@ -24,6 +24,7 @@
             $.getJSON('/getfollower',function(data){
                 var ul = document.getElementById('follower');
                 $.each(data,function (entryindex,entry) {
+                    var id = entry['userid'];
                     var name = entry['username'];
                     var sex = entry['sex'];
                     var location = entry['location'];
@@ -34,10 +35,16 @@
                     if(entry['avatar'] != null)
                         path = "../"+entry['avatar'];
 
-                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
-                    single += '<div class="col-sm-2"><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
-                    single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button class="btn btn-info">';
-                    single += '<i class="glyphicon glyphicon-plus"></i>关&nbsp;注</button></div><hr class="col-sm-12" size="10">';
+                    var single = '<li class="col-md-12"><form method="post" action="/addFriend">';
+                    single += '<div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
+                    single += '<div class="col-sm-2"><input type="hidden" name="friendid" value="'+id+'"/><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
+                    single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>';
+
+                    if(entry['isFriend'] == 1) {
+                        single += '互&nbsp;相&nbsp;关&nbsp;注</button></div><hr class="col-sm-12" size="10"></form>';
+                    } else {
+                        single += '关&nbsp;注</button></div><hr class="col-sm-12" size="10"></form>';
+                    }
                     ul.innerHTML += single;
                 })
             });
@@ -46,6 +53,7 @@
             $.getJSON('/getfollowing',function(data){
                 var ul = document.getElementById('following');
                 $.each(data,function (entryindex,entry) {
+                    var id = entry['userid'];
                     var name = entry['username'];
                     var sex = entry['sex'];
                     var location = entry['location'];
@@ -56,10 +64,11 @@
                     if(entry['avatar'] != null)
                         path = "../"+entry['avatar'];
 
-                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
-                    single += '<div class="col-sm-2"><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
-                    single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button class="btn btn-info">';
-                    single += '<i class="glyphicon glyphicon-plus"></i>取&nbsp;消&nbsp;关&nbsp;注</button></div><hr class="col-sm-12" size="10">';
+                    var single = '<li class="col-md-12"><form method="post" action="/deleteFriend">';
+                    single += '<div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
+                    single += '<div class="col-sm-2"><input type="hidden" name="friendid" value="'+id+'"/><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br>';
+                    single += '<label>'+location+'</label></div><div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2">';
+                    single += '<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>取&nbsp;消&nbsp;关&nbsp;注</button></div><hr class="col-sm-12" size="10"></form>';
                     ul.innerHTML += single;
                 })
             });
