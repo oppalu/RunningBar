@@ -20,8 +20,8 @@
 //$result = $user->searchUser('sy');
 //print_r($result);
 
-require 'PostModel.php';
-$post = new PostModel();
+require 'MessageModel.php';
+$post = new MessageModel();
 
-$result = $post->getPostDetail(2);
+$result = $post->getMyMessages(9);
 print_r($result);

@@ -9,7 +9,9 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'Model/PostModel.php';
+require_once 'Model/MessageModel.php';
 
+$message = new MessageModel();
 $post = new PostModel();
 
 $app->get('/myDynamics',function (Request $request, Response $response,$args) use($post) {
@@ -93,7 +95,7 @@ $app->get('/Comment/{postid}',function (Request $request, Response $response,$ar
     }
 });
 
-$app->post('/addComment',function (Request $request, Response $response, $args) use($post){
+$app->post('/addComment',function (Request $request, Response $response, $args) use($post,$message){
     session_start();
     if (isset($_SESSION['userid'])) {
         $userid = $_SESSION['userid'];
@@ -102,6 +104,8 @@ $app->post('/addComment',function (Request $request, Response $response, $args) 
         $content = filter_var($data['commentcontent'], FILTER_SANITIZE_STRING);
         $result = $post->addComment($userid,$postid,$content);
         if ($result == 1) {
+            $author = $post->getAuthor($postid);
+            $message->sendMessage($author,'您收到了新的评论');
             $response->getBody()->write("<script>alert('评论成功!');location.href='".$_SERVER["HTTP_REFERER"]."';</script>");
         } else {
             $response->getBody()->write("<script>alert('评论失败!');history.go(-1); </script>");

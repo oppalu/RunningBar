@@ -103,10 +103,10 @@ class PostModel {
         );
     }
 
-    function getLike($postid) {
+    function getAuthor($postid) {
         return MyDB::select(
             'dynamics',
-            'like',
+            'createuser',
             array(
                 'where'=>array(
                     'id'=>$postid

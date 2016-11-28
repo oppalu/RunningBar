@@ -14,6 +14,7 @@
     <script src="../public/js/jquery.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
+
 </head>
 
 <body style="background-image: url(../public/img/index.png);background-size: cover">
