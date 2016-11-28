@@ -20,8 +20,8 @@
 //$result = $user->searchUser('sy');
 //print_r($result);
 
-require 'MessageModel.php';
-$post = new MessageModel();
+require 'ActivityModel.php';
+$post = new ActivityModel();
 
-$result = $post->getMyMessages(9);
+$result = $post->showActivities();
 print_r($result);

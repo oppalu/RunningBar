@@ -15,6 +15,47 @@
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            getUser1();
+            getMyAc();
+        });
+        function getUser1() {
+            $.getJSON('/user/show',function(data){
+                document.getElementById('aname1').innerHTML = data.username;
+                document.getElementById('alevel1').innerHTML += data.level;
+                var path = "";
+                if(data.avatar!= null)
+                    path = '../'+data.avatar;
+                $('#ava1').attr('src',path);
+            });
+        }
+
+        function getMyAc() {
+//            $.getJSON('/getActivities',function(data){
+//                var ul = document.getElementById('acs');
+//                $.each(data,function (entryindex,entry) {
+//                    var type = entry['type'];
+//                    var id = entry['id'];
+//                    var name = entry['name'];
+//                    var state = entry['state'];
+//                    var starttime = entry['starttime'];
+//                    var endtime = entry['endtime'];
+//                    var path = "../public/img/team.png";
+//                    if(type == 'single')
+//                        path = "../public/img/single.png";
+//
+//                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100%;" class="img-circle" src="';
+//                    single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
+//                    single += '<label class="label-success">'+state+'</label></div><div class="col-sm-5 pull-right">';
+//                    single += '<label>'+starttime+' - '+endtime+'</label></div><hr class="col-sm-12" size="10"></li>';
+//
+//                    ul.innerHTML += single;
+//                })
+//            });
+        }
+    </script>
+
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
@@ -32,17 +73,17 @@
                     <div class="box box-primary">
                         <div class="box-body">
                             <div class="col-sm-6">
-                                <img width="70%" height="70%" class="img-responsive img-circle" src="../public/img/avatar.png">
+                                <img width="70%" height="70%" class="img-responsive img-circle" id="ava1">
                             </div>
                             <div class="col-sm-6">
-                                <h3>Jessica</h3>
-                                <p class="text-muted">LV1</p>
+                                <h3 id="aname1"></h3>
+                                <p id="alevel1" class="text-muted">LV</p>
                             </div>
                             <div class="col-sm-8">
-                                <a href="activity_add.php" class="btn btn-primary btn-block"><b>发起活动</b></a>
+                                <a href="/addActivity" class="btn btn-primary btn-block"><b>发起活动</b></a>
                             </div>
                             <div class="col-sm-4">
-                                <a href="#">规则介绍</a>
+                                <a data-toggle="modal" href="#" data-target="#read">规则介绍</a>
                             </div>
                         </div>
                         <!--box-body-->

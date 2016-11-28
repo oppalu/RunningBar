@@ -16,23 +16,26 @@
     function initMessage() {
         $.getJSON('/showMessage',function(data){
             var ul = document.getElementById('message');
-            $.each(data,function (entryindex,entry) {
-                var id = entry['id'];
-                var createtime = entry['createtime'];
-                var content = entry['content'];
-
-                var single = '<li><form method="post" action="/readMessage"><input type="hidden" name="messageid" value="'+id+'"/>';
-                single += '  '+content+'<button type="submit" class="pull-right btn btn-info">已读</button></form></li>';
-                ul.innerHTML += single;
-
-            })
+            var count = eval(data).length;
+            if(count > 0) {
+                $.each(data,function (entryindex,entry) {
+                    var id = entry['id'];
+                    var createtime = entry['createtime'];
+                    var content = entry['content'];
+                    var single = '<li><form method="post" action="/readMessage"><input type="hidden" name="messageid" value="'+id+'"/>';
+                    single += '  '+content+'<button type="submit" class="pull-right btn btn-info">已读</button></form></li>';
+                    ul.innerHTML += single;
+                })
+            } else {
+                ul.innerHTML += '<li>您暂时没有收到新消息</li>';
+            }
         });
     }
 
 </script>
 <header class="main-header">
     <!--logo-->
-    <a href="../../index.php" class="logo">
+    <a href="/" class="logo">
         <span class="logo-mini"><b>RB</b></span>
         <span class="logo-lg"><b>Running Bar</b></span>
     </a>
@@ -50,7 +53,6 @@
                         <span class="label label-danger">&nbsp;</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="header">你收到了新消息</li>
                         <li>
                             <ul id="message" class="menu"></ul>
                         </li>
@@ -136,7 +138,7 @@
                         </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../View/activity.php"><i class="fa fa-circle-o"></i> 最新活动</a></li>
+                    <li><a href="/getActivityList"><i class="fa fa-circle-o"></i> 最新活动</a></li>
                     <li><a href="../View/activitymy.php"><i class="fa fa-circle-o"></i> 我的活动</a></li>
                 </ul>
             </li>

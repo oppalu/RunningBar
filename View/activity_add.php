@@ -14,7 +14,6 @@
     <script src="../public/js/jquery.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
-
 </head>
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
@@ -27,28 +26,28 @@
             <h1>发布新挑战</h1>
         </section>
         <section class="content">
-            <form class="form-horizontal">
+            <form method="post" action="/add" class="form-horizontal">
                 <!--活动名称、时间、类型、介绍、目标-->
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="activityname">
+                        <input type="text" class="form-control" name="activityname">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战时间</label>
                     <div class="col-sm-5">
-                        <input type="date" id="startdate">
+                        <input type="date" name="starttime">
                         <label>&nbsp;至&nbsp;</label>
-                        <input type="date" id="enddate">
+                        <input type="date" name="endtime">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">目标</label>
                     <div class="col-sm-1">
-                        <input type="text" class="form-control" id="goal">
+                        <input type="text" class="form-control" name="goal">
                     </div>
                     <div class="col-sm-1">
                         <label>公里</label>
@@ -58,9 +57,9 @@
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战类别</label>
                     <div class="col-sm-4">
-                        <select>
-                            <option value="run">合作赛</option>
-                            <option value="swim">个人挑战</option>
+                        <select name="type">
+                            <option value="team">合作赛</option>
+                            <option value="single">个人挑战</option>
                         </select>
                     </div>
                 </div>
@@ -68,7 +67,7 @@
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战简介</label>
                     <div class="col-sm-4">
-                        <textarea class="textarea" placeholder="描述一下你的挑战吧" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <textarea name="introduction" class="textarea" placeholder="描述一下你的挑战吧" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                 </div>
 
@@ -77,7 +76,7 @@
                         <button type="submit" class="btn btn-info">发布</button>
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" class="btn btn-danger">取消</button>
+                        <a href="/getActivityList"><input type="button" class="btn btn-danger" value="取消"/></a>
                     </div>
                 </div>
             </form>

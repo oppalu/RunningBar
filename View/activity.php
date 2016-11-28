@@ -14,6 +14,46 @@
     <script src="../public/js/jquery.min.js"></script>
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            getUser();
+            getAc();
+        });
+        function getUser() {
+            $.getJSON('/user/show',function(data){
+                document.getElementById('aname').innerHTML = data.username;
+                document.getElementById('alevel').innerHTML += data.level;
+                var path = "";
+                if(data.avatar!= null)
+                    path = '../'+data.avatar;
+                $('#ava').attr('src',path);
+            });
+        }
+
+        function getAc() {
+            $.getJSON('/getActivities',function(data){
+                var ul = document.getElementById('acs');
+                $.each(data,function (entryindex,entry) {
+                    var type = entry['type'];
+                    var id = entry['id'];
+                    var name = entry['name'];
+                    var state = entry['state'];
+                    var starttime = entry['starttime'];
+                    var endtime = entry['endtime'];
+                    var path = "../public/img/team.png";
+                    if(type == 'single')
+                        path = "../public/img/single.png";
+
+                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100%;" class="img-circle" src="';
+                    single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
+                    single += '<label class="label-success">'+state+'</label></div><div class="col-sm-5 pull-right">';
+                    single += '<label>'+starttime+' - '+endtime+'</label></div><hr class="col-sm-12" size="10"></li>';
+
+                    ul.innerHTML += single;
+                })
+            });
+        }
+    </script>
 
 </head>
 <body class="skin-blue sidebar-mini">
@@ -32,17 +72,17 @@
                     <div class="box box-primary">
                         <div class="box-body">
                             <div class="col-sm-6">
-                                <img width="70%" height="70%" class="img-responsive img-circle" src="../public/img/avatar.png">
+                                <img width="70%" height="70%" class="img-responsive img-circle" id="ava">
                             </div>
                             <div class="col-sm-6">
-                                <h3>Jessica</h3>
-                                <p class="text-muted">LV1</p>
+                                <h3 id="aname"></h3>
+                                <p id="alevel" class="text-muted">LV</p>
                             </div>
                             <div class="col-sm-8">
-                                <a href="activity_add.php" class="btn btn-primary btn-block"><b>发起活动</b></a>
+                                <a href="/addActivity" class="btn btn-primary btn-block"><b>发起活动</b></a>
                             </div>
                             <div class="col-sm-4">
-                                <a href="#">规则介绍</a>
+                                <a data-toggle="modal" href="#" data-target="#read">规则介绍</a>
                             </div>
                         </div>
                         <!--box-body-->
@@ -56,45 +96,7 @@
                             <h3 class="box-title">最新活动</h3>
                         </div>
                         <div class="box-body">
-                            <ul>
-                                <!--类型,名称,时间,已参与人数,状态-->
-                                <li class="col-md-12">
-                                    <div class="col-sm-1">
-                                        <img style="width: 100%;" class="img-circle" src="../public/img/single.png">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <a href="activity_info.php">
-                                            <h4>绿色长征</h4>
-                                        </a>
-                                        <label class="label-success">进行中</label>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>2016-10-1 - 2016-10-30</label>
-                                    </div>
-                                    <div class="col-sm-4 pull-right">
-                                        <label>已参与人数:12345</label>
-                                    </div>
-                                    <hr class="col-sm-12" size="10">
-                                </li>
-                                <li class="col-md-12">
-                                    <div class="col-sm-1">
-                                        <img style="width: 100%;" class="img-circle" src="../public/img/team.jpg">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <a href="activity_info.php">
-                                            <h4>马拉松</h4>
-                                        </a>
-                                        <label class="label-danger">已结束</label>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label>2016-10-01 - 2016-10-10</label>
-                                    </div>
-                                    <div class="col-sm-4 pull-right">
-                                        <label>已参与人数:12345</label>
-                                    </div>
-                                    <hr class="col-sm-12" size="10">
-                                </li>
-                            </ul>
+                            <ul id="acs"></ul>
                         </div>
                     </div>
                 </div>
