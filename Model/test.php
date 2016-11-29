@@ -23,5 +23,5 @@
 require 'ActivityModel.php';
 $post = new ActivityModel();
 
-$result = $post->showActivities();
+$result = $post->getUserActivities(9);
 print_r($result);

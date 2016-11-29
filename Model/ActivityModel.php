@@ -85,12 +85,13 @@ class ActivityModel {
 
     function showActivityInfo($id) {
         return MyDB::select(
-            'activity',
+            'activity,user',
             '*',
             array(
                 'where'=>array(
                     'id'=>$id
                 ),
+                'whereother'=>'createuser=userid',
                 'single'=>'true'
             )
         );
@@ -169,6 +170,34 @@ class ActivityModel {
             return FALSE;
         } else {
             return TRUE;
+        }
+    }
+
+    function canJoin($userid) {
+        $already = MyDB::select(
+            'participater',
+            'COUNT(*)',
+            array(
+                'where'=>array(
+                    'userid'=>$userid
+                )
+            )
+        );
+
+        $can = MyDB::select(
+            'user',
+            'level',
+            array(
+                'where'=>array(
+                    'userid'=>$userid
+                )
+            )
+        );
+
+        if($already<($can+1)*3) {
+            return TRUE;
+        }else {
+            return FALSE;
         }
     }
 }

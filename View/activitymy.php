@@ -18,7 +18,8 @@
     <script type="text/javascript">
         $(document).ready(function() {
             getUser1();
-            getMyAc();
+            getMyAcs();
+            getOwnActs()
         });
         function getUser1() {
             $.getJSON('/user/show',function(data){
@@ -31,28 +32,53 @@
             });
         }
 
-        function getMyAc() {
-//            $.getJSON('/getActivities',function(data){
-//                var ul = document.getElementById('acs');
-//                $.each(data,function (entryindex,entry) {
-//                    var type = entry['type'];
-//                    var id = entry['id'];
-//                    var name = entry['name'];
-//                    var state = entry['state'];
-//                    var starttime = entry['starttime'];
-//                    var endtime = entry['endtime'];
-//                    var path = "../public/img/team.png";
-//                    if(type == 'single')
-//                        path = "../public/img/single.png";
-//
-//                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100%;" class="img-circle" src="';
-//                    single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
-//                    single += '<label class="label-success">'+state+'</label></div><div class="col-sm-5 pull-right">';
-//                    single += '<label>'+starttime+' - '+endtime+'</label></div><hr class="col-sm-12" size="10"></li>';
-//
-//                    ul.innerHTML += single;
-//                })
-//            });
+        function getMyAcs() {
+            $.getJSON('/getJoins',function(data){
+                var ul = document.getElementById('joinacts');
+                $.each(data,function (entryindex,entry) {
+                    var type = entry['type'];
+                    var id = entry['id'];
+                    var name = entry['name'];
+                    var state = entry['state'];
+                    var starttime = entry['starttime'];
+                    var endtime = entry['endtime'];
+                    var path = "../public/img/team.png";
+                    if(type == 'single')
+                        path = "../public/img/single.png";
+
+                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100%;" class="img-circle" src="';
+                    single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
+                    single += '<label class="label-success">'+state+'</label></div><div class="col-sm-5 pull-right">';
+                    single += '<label>'+starttime+' - '+endtime+'</label></div><hr class="col-sm-12" size="10"></li>';
+
+                    ul.innerHTML += single;
+                })
+            });
+        }
+
+        function getOwnActs() {
+            $.getJSON('/getOwns',function(data){
+                var ul = document.getElementById('myacts');
+                $.each(data,function (entryindex,entry) {
+                    var type = entry['type'];
+                    var id = entry['id'];
+                    var name = entry['name'];
+                    var state = entry['state'];
+                    var starttime = entry['starttime'];
+                    var endtime = entry['endtime'];
+                    var path = "../public/img/team.png";
+                    if(type == 'single')
+                        path = "../public/img/single.png";
+
+                    var single = '<li class="col-md-12"><form method="post" action="/deleteAct" ><div class="col-sm-1"><img style="width: 100%;" class="img-circle" src="';
+                    single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
+                    single += '<input type="hidden" name="deleteactid" value="'+id+'"/></div><div class="col-sm-4">';
+                    single += '<label>'+starttime+' - '+endtime+'</label></div><div class="col-sm-2 pull-right">';
+                    single += '<button type="submit" class="btn btn-info">删除</button></div><hr class="col-sm-12" size="10"></form></li>';
+
+                    ul.innerHTML += single;
+                })
+            });
         }
     </script>
 
@@ -103,32 +129,15 @@
                             <div class="tab-pane active" id="join">
                                 <div class="box box-primary">
                                     <div class="box-body">
-                                        <ul>
-                                            <li class="col-md-12">
-                                                <div class="col-sm-1">
-                                                    <img style="width: 100%;" class="img-circle" src="../public/img/team.jpg">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <a href="activity_joined.php">
-                                                        <h4>马拉松</h4>
-                                                    </a>
-                                                    <label class="label-success">挑战成功</label>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <label>10.0公里</label>
-                                                </div>
-                                                <div class="col-sm-4 pull-right">
-                                                    <label>排名:第1000名</label>
-                                                </div>
-                                                <hr class="col-sm-12" size="10">
-                                            </li>
-                                        </ul>
+                                        <ul id="joinacts"></ul>
                                     </div>
                                 </div>
                             </div>
                             <!--我的活动列表tab-->
                             <div class="tab-pane" id="own">
-
+                                <div class="box-body">
+                                    <ul id="myacts"></ul>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -91,11 +91,11 @@ $app->post('/add',function (Request $request, Response $response,$args) use($act
 $app->get('/join',function (Request $request, Response $response,$args) use($activity) {
     session_start();
     if (isset($_SESSION['userid'])) {
-        $result = $activity->participate($_SESSION['userid'],$_SESSION['activityid']);
-        if ($result == 1) {
+        if($activity->canJoin($_SESSION['userid'])) {
+            $result = $activity->participate($_SESSION['userid'],$_SESSION['activityid']);
             $response->getBody()->write("<script>alert('加入成功!');history.go(-1);</script>");
         } else {
-            $response->getBody()->write("<script>alert('加入失败!');history.go(-1); </script>");
+            $response->getBody()->write("<script>alert('已达到活动数的上限!');history.go(-1); </script>");
             return $response;
         }
     } else {
@@ -112,6 +112,49 @@ $app->get('/quit',function (Request $request, Response $response,$args) use($act
         } else {
             $response->getBody()->write("<script>alert('退出失败!');history.go(-1); </script>");
             return $response;
+        }
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->get('/getMyActivities',function (Request $request, Response $response,$args) use($activity) {
+    return $this->view->render($response, 'activitymy.php');
+});
+
+$app->get('/getOwns',function (Request $request, Response $response,$args) use($activity) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        return $activity->getUserActivities($_SESSION['userid']);
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->get('/getJoins',function (Request $request, Response $response,$args) use($activity) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        return $activity->getParticipate($_SESSION['userid']);
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->post('/deleteAct',function (Request $request, Response $response,$args) use($activity) {
+    session_start();
+    if (isset($_SESSION['userid'])) {
+        session_start();
+        if (isset($_SESSION['userid'])) {
+            $id = $_POST['deleteactid'];
+            $result = $activity->deleteActivity($id);
+            if ($result == 1) {
+                $response->getBody()->write("<script>alert('删除成功!');location.href='".$_SERVER["HTTP_REFERER"]."';</script>");
+            } else {
+                $response->getBody()->write("<script>alert('删除失败!');history.go(-1); </script>");
+                return $response;
+            }
+        } else {
+            return $this->view->render($response, 'login.php');
         }
     } else {
         return $this->view->render($response, 'login.php');

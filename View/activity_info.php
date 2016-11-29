@@ -28,7 +28,7 @@
                     $('#actimage').attr('src',"../public/img/single.png");
                 document.getElementById('actname').innerHTML = data.name;
                 document.getElementById('actgoal').innerHTML += data.goal;
-                document.getElementById('actcreate').innerHTML = data.createuser;
+                document.getElementById('actcreate').innerHTML = data.username;
                 document.getElementById('acttime').innerHTML = (data.starttime+'至'+data.endtime);
                 document.getElementById('actintro').innerHTML = data.introduction;
 
