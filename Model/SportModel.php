@@ -188,6 +188,57 @@ class SportModel {
         );
     }
 
+    function getWeekData($userid) {
+        $current = date('Y-m-d H:M:S',time()) ;
+        $past = date('Y-m-d H:M:S',strtotime('-1 week'));
+        $data = MyDB::select(
+            'sport',
+            'sum(distance),date(createtime) as time',
+            array(
+                'where'=>array(
+                    'userid'=>$userid
+                ),
+                'whereother'=>'createtime>=\''.$past.'\' and createtime<=\''.$current.'\'',
+                'groupby'=>'date(createtime)'
+            )
+        );
+
+        $temp = json_decode($data,true);
+        $result = array();
+        $result['distance'] = array();
+        $result['time'] = array();
+        for($i=0;$i<count($temp);$i++) {
+            $result['distance'][] = $temp[$i]['sum(distance)'];
+            $result['time'][] = $temp[$i]['time'];
+        }
+        return json_encode($result);
+    }
+
+    function getMonthData($userid) {
+        $current = date('Y-m-d H:M:S',time()) ;
+        $past = date('Y-m-d H:M:S',strtotime('-1 month'));
+        $data = MyDB::select(
+            'sport',
+            'sum(distance),date(createtime) as time',
+            array(
+                'where'=>array(
+                    'userid'=>$userid
+                ),
+                'whereother'=>'createtime>=\''.$past.'\' and createtime<=\''.$current.'\'',
+                'groupby'=>'date(createtime)'
+            )
+        );
+        $temp = json_decode($data,true);
+        $result = array();
+        $result['distance'] = array();
+        $result['time'] = array();
+        for($i=0;$i<count($temp);$i++) {
+            $result['distance'][] = $temp[$i]['sum(distance)'];
+            $result['time'][] = $temp[$i]['time'];
+        }
+        return json_encode($result);
+    }
+
     function analyse($userid) {
         $data = MyDB::select(
             'sport',

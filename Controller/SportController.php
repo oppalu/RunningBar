@@ -93,5 +93,14 @@ $app->get('/rankChart',function (Request $request, Response $response,$args) use
         $result['run'][] = $sport->getSingleRun($temp[$i]['userid'])['run'];
     }
     return json_encode($result);
+});
 
+$app->get('/weekChart',function (Request $request, Response $response,$args) use($sport) {
+    session_start();
+    return $sport->getWeekData($_SESSION['userid']);
+});
+
+$app->get('/monthChart',function (Request $request, Response $response,$args) use($sport) {
+    session_start();
+    return $sport->getMonthData($_SESSION['userid']);
 });

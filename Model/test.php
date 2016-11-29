@@ -23,7 +23,7 @@
 require 'SportModel.php';
 $sport = new SportModel();
 
-$result = $sport->walkrank(9);
+$result = $sport->getWeekData(9);
 
 print_r($result);
 

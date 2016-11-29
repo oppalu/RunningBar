@@ -21,7 +21,8 @@
             getAInfo();
             initSport();
             initRank();
-            rankChart();
+            Chart();
+
         });
         function getAInfo() {
             $.getJSON('/user/show',function(data){
@@ -58,7 +59,7 @@
             });
         }
 
-        function rankChart() {
+        function Chart() {
             var myChart1 = echarts.init(document.getElementById('friendcompare'));
             $.getJSON('/rankChart',function(data){
                 myChart1.setOption({
@@ -80,6 +81,70 @@
                             name: '步行',
                             type: 'bar',
                             data: data.walk
+                        }
+                    ]
+                });
+            });
+
+            var myChart2 = echarts.init(document.getElementById('week'));
+            $.getJSON('/weekChart',function(data){
+                myChart2.setOption({
+                    title: {
+                        text: '一周运动数据'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            magicType: {show: true, type: ['line', 'bar']}
+                        }
+                    },
+                    legend: {
+                        data:['运动数据']
+                    },
+                    xAxis: {
+                            data:data.time
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name:'运动数据',
+                            type:'bar',
+                            data:data.distance
+                        }
+                    ]
+                });
+            });
+
+            var myChart3 = echarts.init(document.getElementById('month'));
+            $.getJSON('/monthChart',function(data){
+                myChart3.setOption({
+                    title: {
+                        text: '近一个月运动数据'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            magicType: {show: true, type: ['line', 'bar']}
+                        }
+                    },
+                    legend: {
+                        data:['运动数据']
+                    },
+                    xAxis: {
+                        data:data.time
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name:'运动数据',
+                            type:'bar',
+                            data:data.distance
                         }
                     ]
                 });
@@ -176,12 +241,9 @@
                     <!--②统计图：单日最佳写在左边,最近一周、一月、所有每天运动情况（包括步行和跑步）-->
                     <div class="box box-warning">
                         <div class="box-body">
-                            <div class="col-md-6 col-sm-6">
-                                <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">这是没写完的其他统计图部分</span>
-                            </div>
-                            <!--统计图部分-->
-                            <div class="col-md-6 col-sm-6">
-                                <div id="a" style="width: 100%;height:400px;"></div>
+                            <div class="col-md-12 col-sm-12">
+                                <div id="week" style="width: 100%;height:400px;"></div>
+                                <div id="month" style="width: 100%;height:400px;"></div>
                             </div>
                         </div>
                     </div>
