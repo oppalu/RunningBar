@@ -44,15 +44,19 @@ $app->get('/logout',function (Request $request, Response $response,$args) use($u
 
 //登录使用的post方法
 $app->post('/homepage',function (Request $request, Response $response, $args) use($user){
+    session_start();
     $data = $request->getParsedBody();
     $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
+    $_SESSION['user'] = $username;
+    $_SESSION['userid'] = $user->getUserId($username);
     $result = $user->login($username,$password);
     if($result == 1) {
-        session_start();
-        $_SESSION['user'] = $username;
-        $_SESSION['userid'] = $user->getUserId($username);
-        return $this->view->render($response,'sportdata.php');
+        if($username == 'admin') {
+            return $this->view->render($response,'admin.php');
+        } else {
+            return $this->view->render($response,'sportdata.php');
+        }
     } else {
         $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
         return $response;
@@ -61,15 +65,15 @@ $app->post('/homepage',function (Request $request, Response $response, $args) us
 
 //注册使用的post方法
 $app->post('/userinfo',function (Request $request, Response $response, $args) use($user){
+    session_start();
     $data = $request->getParsedBody();
     $phone = filter_var($data['phone'], FILTER_SANITIZE_STRING);
     $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
+    $_SESSION['user'] = $username;
+    $_SESSION['userid'] = $user->getUserId($username);
     $result = $user->register($username,$phone,$password);
     if($result == 1) {
-        session_start();
-        $_SESSION['user'] = $username;
-        $_SESSION['userid'] = $user->getUserId($username);
         $response->getBody()->write("<script>alert('注册成功!');</script>");
         return $this->view->render($response,'userinfo.php');
     } else{
@@ -166,4 +170,12 @@ $app->post('/search',function (Request $request, Response $response,$args) use($
     session_start();
     $_SESSION['keyword'] = $keyword;
     return $this->view->render($response, 'search.php');
+});
+
+$app->get('/homepage',function (Request $request, Response $response, $args) use($activity){
+    if (isset($_SESSION['user'])) {
+        return $this->view->render($response,'sportdata.php');
+    } else {
+        return $this->view->render($response,'admin.php');
+    }
 });

@@ -66,7 +66,8 @@ class ActivityModel {
                 'where'=>array(
                     'state'=>'进行中'
                 ),
-                'whereother'=>$temp
+                'whereother'=>$temp,
+                'orderby'=>'starttime ASC'
             )
         );
     }
@@ -154,6 +155,23 @@ class ActivityModel {
         );
     }
 
+    function editAcitivity($id,$name,$starttime,$endtime,$goal,$type,$introduction) {
+        return MyDB::update(
+            'activity',
+            array(
+               'name'=>$name,
+                'starttime'=>$starttime,
+                'endtime'=>$endtime,
+                'goal'=>$goal,
+                'type'=>$type,
+                'introduction'=>$introduction
+            ),
+            array(
+                'id'=>$id
+            )
+        );
+    }
+
     function isJoin($userid,$activityid) {
         $result = MyDB::select(
             'participater',
@@ -171,6 +189,24 @@ class ActivityModel {
         } else {
             return TRUE;
         }
+    }
+
+    function admin() {
+        $date = date('Y-m-d',time());
+        $DB = MyDB::initialize();
+        $sql = "UPDATE activity SET state = '已结束' WHERE endtime<". $date.";";
+        $query = $DB->prepare($sql);
+        $query->execute();
+
+        return MyDB::select(
+          'activity',
+            '*',
+            array(
+                'where'=>array(
+                    'state'=>'审核中'
+                )
+            )
+        );
     }
 
     function canJoin($userid) {

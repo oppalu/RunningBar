@@ -65,6 +65,17 @@ $app->get('/addActivity',function (Request $request, Response $response,$args) u
     return $this->view->render($response, 'activity_add.php');
 });
 
+$app->get('/editActivity/{activityid}',function (Request $request, Response $response,$args) use($activity) {
+    session_start();
+    if (isset($_SESSION['user'])) {
+        $postid = $request->getAttribute('activityid');
+        $_SESSION['activityid'] = $postid;
+        return $this->view->render($response, 'activity_edit.php');
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
 $app->post('/add',function (Request $request, Response $response,$args) use($activity) {
     session_start();
     if (isset($_SESSION['userid'])) {
@@ -141,7 +152,6 @@ $app->get('/getJoins',function (Request $request, Response $response,$args) use(
 });
 
 $app->post('/deleteAct',function (Request $request, Response $response,$args) use($activity) {
-    session_start();
     if (isset($_SESSION['userid'])) {
         session_start();
         if (isset($_SESSION['userid'])) {
@@ -160,3 +170,45 @@ $app->post('/deleteAct',function (Request $request, Response $response,$args) us
         return $this->view->render($response, 'login.php');
     }
 });
+
+$app->post('/editAct',function (Request $request, Response $response,$args) use($activity) {
+    session_start();
+    if (isset($_SESSION['user'])) {
+        $data = $request->getParsedBody();
+        $name = filter_var($data['name1'], FILTER_SANITIZE_STRING);
+        $starttime = filter_var($data['starttime1'], FILTER_SANITIZE_STRING);
+        $endtime = filter_var($data['endtime1'], FILTER_SANITIZE_STRING);
+        $goal = filter_var($data['goal1'], FILTER_SANITIZE_STRING);
+        $type = filter_var($data['type1'], FILTER_SANITIZE_STRING);
+        $intro = filter_var($data['introduction1'], FILTER_SANITIZE_STRING);
+
+        $result = $activity->editAcitivity($_SESSION['activityid'],$name,$starttime,$endtime,$goal,$type,$intro);
+        if ($result == 1) {
+            $response->getBody()->write("<script>alert('更新成功!');history.go(-1);</script>");
+        } else {
+            $response->getBody()->write("<script>alert('更新失败!');history.go(-1); </script>");
+            return $response;
+        }
+    } else {
+        return $this->view->render($response, 'login.php');
+    }
+});
+
+$app->get('/adminget',function (Request $request, Response $response,$args) use($activity) {
+    session_start();
+    return $activity->admin();
+});
+$app->post('/review/{adminid}',function (Request $request, Response $response,$args) use($activity,$message) {
+    session_start();
+    $id = $request->getAttribute('adminid');
+    $user = $_POST['au'];
+    $result = $activity->reviewActivity($id);
+    if ($result == 1) {
+        $message->sendMessage($user,'您的活动已通过审核');
+        $response->getBody()->write("<script>location.href='".$_SERVER["HTTP_REFERER"]."';</script>");
+    } else {
+        $response->getBody()->write("<script>alert('审核失败!');location.href='".$_SERVER["HTTP_REFERER"]."'; </script>");
+        return $response;
+    }
+});
+

@@ -74,7 +74,7 @@
                     single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
                     single += '<input type="hidden" name="deleteactid" value="'+id+'"/></div><div class="col-sm-4">';
                     single += '<label>'+starttime+' - '+endtime+'</label></div><div class="col-sm-2 pull-right">';
-                    single += '<button type="submit" class="btn btn-info">删除</button></div><hr class="col-sm-12" size="10"></form></li>';
+                    single += '<a href="/editActivity/'+id+'"><input type="button" value="修改"/></a><button type="submit" class="btn btn-danger">删除</button></div><hr class="col-sm-12" size="10"></form></li>';
 
                     ul.innerHTML += single;
                 })

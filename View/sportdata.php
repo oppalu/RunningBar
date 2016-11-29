@@ -54,8 +54,15 @@
                         </div>
                         <!--box-body-->
                     </div>
-                    <!--box-->
-                    <div class="box box-primary">
+                </div>
+                <!--col-md-3-->
+                <!--勋章馆、累计步行，今日情况;累计跑步，今日情况;累计天数;-->
+                <div class="col-md-9">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">个人信息</h3>
+                        </div>
+                        <!-- /.box-header -->
                         <div class="box-body">
                             <strong>所在地</strong>&nbsp;&nbsp;&nbsp;&nbsp;
                             <span class="text-muted ">江苏徐州</span>
@@ -68,17 +75,12 @@
                             <strong>运动宣言</strong>
                             <p>还没有设置个人宣言</p>
                         </div>
-                        <!-- /.box-body -->
                     </div>
-                </div>
-                <!--col-md-3-->
-                <!--勋章馆、累计步行，今日情况;累计跑步，今日情况;累计天数;-->
-                <div class="col-md-9">
-                    <div class="box box-warning">
+                    <div class="box box-danger">
                         <div class="box-header with-border">
                             <h3 class="box-title">运动信息</h3>
                         </div>
-                        <!-- /.box-header -->
+
                         <div class="box-body">
                             <div>
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">加入Running Bar共</span>
@@ -110,43 +112,6 @@
                                     <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">累计跑步</span>
                                     <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">20</span>
                                     <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">公里</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box box-danger">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">勋章馆</h3>
-                        </div>
-
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal1.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal1.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal1.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal1.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal2.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal2.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal2.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal2.png" style="width: 80%">
-                                </div>
-                                <div class="col-sm-4 col-md-2">
-                                    <img src="../public/img/medal3.png" style="width: 80%">
                                 </div>
                             </div>
                         </div>
