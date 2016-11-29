@@ -20,10 +20,11 @@
 //$result = $user->searchUser('sy');
 //print_r($result);
 
-require 'PostModel.php';
-$post = new PostModel();
+require 'SportModel.php';
+$sport = new SportModel();
 
-$result = $post->getFriendPosts(9);
+$result = $sport->walkrank(9);
+
 print_r($result);
 
 //require 'Generate.php';

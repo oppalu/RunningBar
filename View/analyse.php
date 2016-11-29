@@ -15,7 +15,77 @@
     <script src="../public/js/bootstrap.min.js"></script>
     <script src="../public/js/app.js"></script>
     <script src="../public/js/echarts.min.js"></script>
-    <script src="../public/js/analyse.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            getAInfo();
+            initSport();
+            initRank();
+            rankChart();
+        });
+        function getAInfo() {
+            $.getJSON('/user/show',function(data){
+                document.getElementById('sname').innerHTML =data.username;
+                var path = "";
+                if(data.avatar != null) {
+                    path = '../'+data.avatar;
+                }
+                $('#simage').attr('src',path);
+                document.getElementById('slevel').innerHTML = 'LV'+data.level;
+                document.getElementById('sfollower').innerHTML = data.followerNum;
+                document.getElementById('sfollowing').innerHTML = data.followingNum;
+                document.getElementById('splace').innerHTML = data.location;
+                document.getElementById('shobby').innerHTML = data.interest;
+                document.getElementById('sslogen').innerHTML = data.slogen;
+            });
+        }
+
+        function initSport() {
+            $.getJSON('/getsport',function(data){
+                document.getElementById('registerday').innerHTML = data.registerday;
+                document.getElementById('totalwalk').innerHTML = (data.totalwalk==null ? 0 : data.totalwalk);
+                document.getElementById('totalrun').innerHTML = (data.totalrun==null ? 0 : data.totalrun);
+                document.getElementById('calories').innerHTML = data.calories;
+                document.getElementById('equal').innerHTML = data.analyse;
+            });
+        }
+
+        function initRank() {
+            $.getJSON('/getRank',function(data){
+                document.getElementById('friendnum').innerHTML = data.friendnum;
+                document.getElementById('walkrank').innerHTML = data.walkrank;
+                document.getElementById('runrank').innerHTML = data.runrank;
+            });
+        }
+
+        function rankChart() {
+            var myChart1 = echarts.init(document.getElementById('friendcompare'));
+            $.getJSON('/rankChart',function(data){
+                myChart1.setOption({
+                    tooltip : {},
+                    legend: {
+                        data:['跑步','步行']
+                    },
+                    xAxis: {
+                        data: data.username
+                    },
+                    yAxis: {},
+                    series: [
+                        {
+                            name: '跑步',
+                            type: 'bar',
+                            data: data.run
+                        },
+                        {
+                            name: '步行',
+                            type: 'bar',
+                            data: data.walk
+                        }
+                    ]
+                });
+            });
+        }
+    </script>
 
 </head>
 <body class="skin-blue sidebar-mini">
@@ -34,43 +104,25 @@
                 <div class="col-md-3">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <img width="80%" height="80%" class="center-block img-responsive img-circle" src="../public/img/avatar.png">
-                            <h3 class="text-center">Jessica</h3>
-                            <p class="text-muted text-center">LV1</p>
+                            <img id="simage" width="80%" height="80%" class="center-block img-responsive img-circle">
+                            <h3 id="sname" class="text-center"></h3>
+                            <p id="slevel" class="text-muted text-center"></p>
 
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <b>粉丝数</b>
-                                    <a class="pull-right">2</a>
+                                    <a id="sfollower" class="pull-right"></a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>关注的人数</b>
-                                    <a class="pull-right">1</a>
+                                    <a id="sfollowing" class="pull-right"></a>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="post.php">动态数</a>
-                                    <a class="pull-right">1</a>
+                                    <a href="/myDynamics">动态</a>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-primary btn-block"><b>关注</b></a>
                         </div>
                         <!--box-body-->
-                    </div>
-                    <!--box-->
-                    <div class="box box-primary">
-                        <div class="box-body">
-                            <strong>所在地</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span class="text-muted ">江苏徐州</span>
-                            <hr>
-
-                            <strong>爱好</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span class="text-muted ">跑步</span>
-                            <hr>
-
-                            <strong>运动宣言</strong>
-                            <p>还没有设置个人宣言</p>
-                        </div>
-                        <!-- /.box-body -->
                     </div>
                 </div>
                 <!--col-md-3-->
@@ -80,20 +132,20 @@
                     <div class="box box-primary">
                         <div class="box-body">
                             <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">自从加入Running Bar&nbsp;</span>
-                            <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">30</span>
+                            <span id="registerday" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
                             <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">天以来,</span>
                             <p style="padding-left:20px">
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">你一共跑步了</span>
-                                <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">30</span>
+                                <span id="totalrun" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">公里,步行了</span>
-                                <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">3</span>
+                                <span id="totalwalk" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">公里,</span>
                             </p>
                             <p style="padding-left:40px">
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">一共消耗了</span>
-                                <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">10000</span>
-                                <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">卡路里,相当于</span>
-                                <span style="font-family:Microsoft YaHei;color: #ac2925;font-weight:500;font-size:24px;opacity:1">瘦下了3公斤</span>
+                                <span id="calories" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
+                                <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">千卡,相当于</span>
+                                <span id="equal" style="font-family:Microsoft YaHei;color: #ac2925;font-weight:500;font-size:24px;opacity:1"></span>
                             </p>
                         </div>
                     </div>
@@ -102,22 +154,22 @@
                         <div class="box-body">
                             <div class="col-md-6 col-sm-6">
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">你一共有&nbsp;</span>
-                                <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">3</span>
+                                <span id="friendnum" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
                                 <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">位好友,</span>
                                 <p style="padding-left:20px">
                                     <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">在最近的一周内,您的累计步行量在好友中排名第</span>
-                                    <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">1</span>
+                                    <span id="walkrank" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
                                     <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">位</span>
                                 </p>
                                 <p style="padding-left:40px">
                                     <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">在最近的一周内,您的累计跑步量在好友中排名第</span>
-                                    <span style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1">1</span>
+                                    <span id="runrank" style="font-family:Microsoft YaHei;font-weight:500;font-size:24px;opacity:1"></span>
                                     <span style="font-family:Microsoft YaHei;font-weight:400;font-size:16px;opacity:0.8">位</span>
                                 </p>
                             </div>
                             <!--统计图部分-->
                             <div class="col-md-6 col-sm-6">
-                                <div id="friendcompare" style="width: 100%;height:400px;"></div>
+                                <div id="friendcompare" style="width: 100%;height:350px;"></div>
                             </div>
                         </div>
                     </div>

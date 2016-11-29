@@ -177,7 +177,8 @@ $app->post('/search',function (Request $request, Response $response,$args) use($
 });
 
 $app->get('/homepage',function (Request $request, Response $response, $args) use($activity){
-    if (isset($_SESSION['user'])) {
+    session_start();
+    if(isset($_SESSION['userid'])) {
         return $this->view->render($response,'sportdata.php');
     } else {
         return $this->view->render($response,'admin.php');
