@@ -9,7 +9,9 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'Model/UserModel.php';
+require_once 'Model/FriendModel.php';
 
+$friend = new FriendModel();
 $user = new UserModel();
 
 $app->get('/login',function (Request $request, Response $response,$args) use($user) {
@@ -28,8 +30,10 @@ $app->get('/user/show',function (Request $request, Response $response,$args) use
     session_start();
     if (isset($_SESSION['userid'])) {
         $userid = $_SESSION['userid'];
-        $result = $user->getUserInfo($userid);
-        return $result;
+        $temp = json_decode($user->getUserInfo($userid),true);
+        $temp['followerNum'] = json_decode($user->getFollowerNum($userid),true)['followerNum'];
+        $temp['followingNum'] = json_decode($user->getFollowingNum($userid),true)['followingNum'];
+        return json_encode($temp);
     } else {
         return $this->view->render($response, 'login.php');
     }
@@ -178,4 +182,18 @@ $app->get('/homepage',function (Request $request, Response $response, $args) use
     } else {
         return $this->view->render($response,'admin.php');
     }
+});
+
+$app->get('/friend/show',function (Request $request, Response $response,$args) use($user,$friend) {
+    session_start();
+    $userid = $_SESSION['sportuserid'];
+    $temp = json_decode($user->getUserInfo($userid),true);
+    $temp['followerNum'] = json_decode($user->getFollowerNum($userid),true)['followerNum'];
+    $temp['followingNum'] = json_decode($user->getFollowingNum($userid),true)['followingNum'];
+    if($friend->isFriend($_SESSION['userid'],$_SESSION['sportuserid'])) {
+        $temp['isFriend'] = 1;
+    } else {
+        $temp['isFriend'] = 0;
+    }
+    return json_encode($temp);
 });

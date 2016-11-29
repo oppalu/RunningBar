@@ -20,8 +20,14 @@
 //$result = $user->searchUser('sy');
 //print_r($result);
 
-require 'ActivityModel.php';
-$post = new ActivityModel();
+require 'PostModel.php';
+$post = new PostModel();
 
-$result = $post->getUserActivities(9);
+$result = $post->getFriendPosts(9);
 print_r($result);
+
+//require 'Generate.php';
+//$test = new Generate();
+//for ($i=0;$i<24;$i++) {
+//    $test->generateData(19,'2015-02-26 21:11:05',67,'walk');
+//}

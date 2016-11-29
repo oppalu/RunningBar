@@ -29,6 +29,7 @@
                     path = '../'+data.avatar;
                 }
                 $('#detailavatar').attr('src',path);
+                $('#detailname').attr('href','/sportinfo/'+data.userid);
                 var title = document.getElementById('detailtitle');
                 title.innerHTML = data.title;
                 var content = document.getElementById('detailcontent');
@@ -48,6 +49,7 @@
                 var ul = document.getElementById('comments');
                 $.each(data,function (entryindex,entry) {
                     var name = entry['username'];
+                    var id = entry['userid'];
                     var createtime = entry['createtime'];
                     var content = entry['content'];
                     var path = "";
@@ -56,7 +58,7 @@
 
                     var single = '<li class="col-md-12"><div class="post clearfix" style="margin: 2%"><div class="user-block">';
                     single += '<div class="col-md-1"><img style="width: 80%" class="img-circle img-bordered-sm" src="'+path+'"></div>';
-                    single += '<a href="#">'+name+'</a><p style="font-size: 11px" class="description">'+createtime+'</p>';
+                    single += '<a href="/sportinfo/'+id+'">'+name+'</a><p style="font-size: 11px" class="description">'+createtime+'</p>';
                     single += '</div><p>'+content+'</p></div></li>';
 
                     ul.innerHTML += single;
@@ -92,7 +94,7 @@
                                 <img style="width: 80%" class="img-circle img-bordered-sm" id="detailavatar">
                             </div>
                             <span class="username">
-                                <a href="#" id="detailname"></a>
+                                <a  id="detailname"></a>
                             </span>
                             <p style="font-size: 11px" class="description" id="detailtime"></p>
                         </div>

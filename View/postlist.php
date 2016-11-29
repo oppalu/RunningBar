@@ -25,6 +25,7 @@
                 var ul = document.getElementById('friendpost');
                 $.each(data,function (entryindex,entry) {
                     var fid = entry['id'];
+                    var id = entry['userid'];
                     var title = entry['title'];
                     var content = entry['content'];
                     var name = entry['username'];
@@ -34,7 +35,7 @@
                     if(entry['avatar'] != null)
                         path = "../"+entry['avatar'];
                     var single = '<div class="post clearfix" style="margin: 2%"><div class="user-block"><div class="col-md-1">';
-                    single += '<img style="width: 80%" class="img-circle img-bordered-sm" src="'+path+'"></div><a href="#">'+name+'</a>';
+                    single += '<img style="width: 80%" class="img-circle img-bordered-sm" src="'+path+'"></div><a href="/sportinfo/'+id+'">'+name+'</a>';
                     single += '<p style="font-size: 11px" class="description">'+createtime+'</p></div>';
                     single += '<a style="font-family:Microsoft YaHei;color: #000000;font-size:20px;" href="/Dynamic/'+fid+'">'+title+'</a>';
                     single += '<p class="product-description">'+content+'</p><ul class="list-inline"><li class="pull-right" style="margin-right: 1%">';

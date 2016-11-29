@@ -93,5 +93,4 @@ class FriendModel {
             return TRUE;
         }
     }
-
 }

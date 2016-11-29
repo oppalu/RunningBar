@@ -37,7 +37,7 @@
 
                     var single = '<li class="col-md-12"><form method="post" action="/addFriend">';
                     single += '<div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
-                    single += '<div class="col-sm-2"><input type="hidden" name="friendid" value="'+id+'"/><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
+                    single += '<div class="col-sm-2"><input type="hidden" name="friendid" value="'+id+'"/><a href="/sportinfo/'+id+'"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
                     single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>';
 
                     if(entry['isFriend'] == 1) {
@@ -66,7 +66,7 @@
 
                     var single = '<li class="col-md-12"><form method="post" action="/deleteFriend">';
                     single += '<div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
-                    single += '<div class="col-sm-2"><input type="hidden" name="friendid" value="'+id+'"/><a href="#"><b>'+name+'</b></a><br><label>'+sex+'</label><br>';
+                    single += '<div class="col-sm-2"><input type="hidden" name="friendid" value="'+id+'"/><a href="/sportinfo/'+id+'"><b>'+name+'</b></a><br><label>'+sex+'</label><br>';
                     single += '<label>'+location+'</label></div><div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2">';
                     single += '<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus"></i>取&nbsp;消&nbsp;关&nbsp;注</button></div><hr class="col-sm-12" size="10"></form>';
                     ul.innerHTML += single;

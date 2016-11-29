@@ -138,4 +138,30 @@ class UserModel {
             return TRUE;
         }
     }
+
+    function getFollowerNum($userid) {
+        return MyDB::select(
+            'follower',
+            'COUNT(*) AS followerNum',
+            array(
+                'where'=>array(
+                    'userid'=>$userid
+                ),
+                'single'=>'true'
+            )
+        );
+    }
+
+    function getFollowingNum($userid) {
+        return MyDB::select(
+            'follower',
+            'COUNT(*) AS followingNum',
+            array(
+                'where'=>array(
+                    'fanid'=>$userid
+                ),
+                'single'=>'true'
+            )
+        );
+    }
 }

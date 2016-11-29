@@ -21,12 +21,12 @@
         });
         function getAInfo() {
             $.getJSON('/activity',function(data){
-                $('activityname1').val(data.name);
-                $('starttime1').val(data.starttime);
-                $('endtime1').val(data.endtime);
-                $('goal1').val(data.goal);
-                $('type1').val(data.type);
-                $('introduction1').val(data.introduction);
+                $('#activityname1').val(data.name);
+                $('#starttime1').val(data.starttime);
+                $('#endtime1').val(data.endtime);
+                $('#goal1').val(data.goal);
+                $('#type1').val(data.type);
+                $('#introduction1').val(data.introduction);
             });
         }
     </script>
@@ -47,23 +47,23 @@
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战名称</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="activityname1">
+                        <input type="text" class="form-control" name="activityname1" id="activityname1">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战时间</label>
                     <div class="col-sm-5">
-                        <input type="date" name="starttime1">
+                        <input type="date" id="starttime1" name="starttime1">
                         <label>&nbsp;至&nbsp;</label>
-                        <input type="date" name="endtime1">
+                        <input type="date" id="endtime1" name="endtime1">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">目标</label>
                     <div class="col-sm-1">
-                        <input type="text" class="form-control" name="goal1">
+                        <input type="text" class="form-control" id="goal1" name="goal1">
                     </div>
                     <div class="col-sm-1">
                         <label>公里</label>
@@ -73,7 +73,7 @@
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战类别</label>
                     <div class="col-sm-4">
-                        <select name="type1">
+                        <select id="type1" name="type1">
                             <option value="team">合作赛</option>
                             <option value="single">个人挑战</option>
                         </select>
@@ -83,7 +83,7 @@
                 <div class="form-group">
                     <label class="col-sm-offset-2 col-sm-2 control-label">挑战简介</label>
                     <div class="col-sm-4">
-                        <textarea name="introduction1" class="textarea" placeholder="描述一下你的挑战吧" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <textarea id="introduction1" name="introduction1" class="textarea" placeholder="描述一下你的挑战吧" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                     </div>
                 </div>
 

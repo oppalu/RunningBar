@@ -52,6 +52,7 @@ class PostModel {
         return MyDB::select(
             'dynamics,user',
             array(
+                'userid',
                 'title',
                 'username',
                 'createtime',
@@ -73,6 +74,7 @@ class PostModel {
         return MyDB::select(
             'dynamics,follower,user',
             array(
+                'user.userid',
                 'username',
                 'id',
                 'title',
@@ -119,6 +121,7 @@ class PostModel {
         return MyDB::select(
             'comment,user',
             array(
+                'userid',
                 'username',
                 'createtime',
                 'content',
