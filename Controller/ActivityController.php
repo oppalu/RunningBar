@@ -175,7 +175,7 @@ $app->post('/editAct',function (Request $request, Response $response,$args) use(
     session_start();
     if (isset($_SESSION['user'])) {
         $data = $request->getParsedBody();
-        $name = filter_var($data['name1'], FILTER_SANITIZE_STRING);
+        $name = filter_var($data['activityname1'], FILTER_SANITIZE_STRING);
         $starttime = filter_var($data['starttime1'], FILTER_SANITIZE_STRING);
         $endtime = filter_var($data['endtime1'], FILTER_SANITIZE_STRING);
         $goal = filter_var($data['goal1'], FILTER_SANITIZE_STRING);
