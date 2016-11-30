@@ -42,7 +42,7 @@
                     var state = entry['state'];
                     var starttime = entry['starttime'];
                     var endtime = entry['endtime'];
-                    var path = "../public/img/team.png";
+                    var path = "../public/img/team.jpg";
                     if(type == 'single')
                         path = "../public/img/single.png";
 
@@ -66,7 +66,7 @@
                     var state = entry['state'];
                     var starttime = entry['starttime'];
                     var endtime = entry['endtime'];
-                    var path = "../public/img/team.png";
+                    var path = "../public/img/team.jpg";
                     if(type == 'single')
                         path = "../public/img/single.png";
 

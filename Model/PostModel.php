@@ -9,7 +9,16 @@ require_once "MyDB.php";
 
 class PostModel {
 
-    function __construct() {
+    private static $model = null;
+
+    public static function getInstance(){
+        if(self::$model == null)
+            self::$model = new PostModel();
+        return self::$model;
+    }
+
+
+    private function __construct() {
         MyDB::initialize();
         date_default_timezone_set("Asia/Shanghai");
     }
@@ -105,10 +114,22 @@ class PostModel {
         );
     }
 
+    function getLike($postid) {
+        return MyDB::select(
+            'dynamics',
+            'like',
+            array(
+                'where'=>array(
+                    'id'=>$postid
+                )
+            )
+        );
+    }
+
     function getAuthor($postid) {
         return MyDB::select(
             'dynamics',
-            'createuser',
+            'authorid',
             array(
                 'where'=>array(
                     'id'=>$postid

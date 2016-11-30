@@ -9,7 +9,16 @@ require_once "MyDB.php";
 
 class ActivityModel {
 
-    function __construct() {
+    private static $model = null;
+
+    public static function getInstance(){
+        if(self::$model == null)
+            self::$model = new ActivityModel();
+        return self::$model;
+    }
+
+
+    private function __construct() {
         MyDB::initialize();
         date_default_timezone_set("Asia/Shanghai");
     }
@@ -159,7 +168,7 @@ class ActivityModel {
         return MyDB::update(
             'activity',
             array(
-               'name'=>$name,
+                'name'=>$name,
                 'starttime'=>$starttime,
                 'endtime'=>$endtime,
                 'goal'=>$goal,

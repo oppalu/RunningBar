@@ -8,11 +8,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'Model/PostModel.php';
+require_once 'Model/PostModel.php';
 require_once 'Model/MessageModel.php';
 
-$message = new MessageModel();
-$post = new PostModel();
+$message = MessageModel::getInstance();
+$post = PostModel::getInstance();
 
 $app->get('/myDynamics',function (Request $request, Response $response,$args) use($post) {
     return $this->view->render($response, 'post.php');

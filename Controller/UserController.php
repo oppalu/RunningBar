@@ -8,11 +8,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'Model/UserModel.php';
+require_once 'Model/UserModel.php';
 require_once 'Model/FriendModel.php';
 
-$friend = new FriendModel();
-$user = new UserModel();
+$friend = FriendModel::getInstance();
+$user = UserModel::getInstance();
 
 $app->get('/login',function (Request $request, Response $response,$args) use($user) {
     return $this->view->render($response, 'login.php');
@@ -52,19 +52,27 @@ $app->post('/homepage',function (Request $request, Response $response, $args) us
     $data = $request->getParsedBody();
     $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
-    $_SESSION['user'] = $username;
-    $_SESSION['userid'] = $user->getUserId($username);
-    $result = $user->login($username,$password);
-    if($result == 1) {
-        if($username == 'admin') {
-            return $this->view->render($response,'admin.php');
-        } else {
-            return $this->view->render($response,'sportdata.php');
-        }
-    } else {
-        $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
+    if(preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{1,}$/u',$username) == FALSE){
+        $response->getBody()->write("<script>alert('用户名格式不合法!'); history.go(-1);</script>");
         return $response;
+    } else {
+        $result = $user->login($username,$password);
+        if($result == 1) {
+            if($username == 'admin') {
+                $_SESSION['user'] = null;
+                $_SESSION['userid'] = null;
+                return $this->view->render($response,'admin.php');
+            } else {
+                $_SESSION['user'] = $username;
+                $_SESSION['userid'] = $user->getUserId($username);
+                return $this->view->render($response,'sportdata.php');
+            }
+        } else {
+            $response->getBody()->write("<script>alert('用户名或密码错误!');history.go(-1); </script>");
+            return $response;
+        }
     }
+
 });
 
 //注册使用的post方法
@@ -74,6 +82,14 @@ $app->post('/userinfo',function (Request $request, Response $response, $args) us
     $phone = filter_var($data['phone'], FILTER_SANITIZE_STRING);
     $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
     $password = filter_var($data['password'], FILTER_SANITIZE_STRING);
+    if(!preg_match('/^\d{11}$/',$phone)){
+        $response->getBody()->write("<script>alert('手机号码格式有误!'); history.go(-1);</script>");
+        return $response;
+    }
+    if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9]{1,}$/u',$username)){
+        $response->getBody()->write("<script>alert('用户名格式不合法!'); history.go(-1);</script>");
+        return $response;
+    }
     $_SESSION['user'] = $username;
     $_SESSION['userid'] = $user->getUserId($username);
     $result = $user->register($username,$phone,$password);
@@ -152,7 +168,7 @@ $app->post('/user/account',function (Request $request, Response $response, $args
     }
 });
 
-$app->get('/search',function (Request $request, Response $response,$args) use($user) {
+$app->get('/searchre',function (Request $request, Response $response,$args) use($user) {
     session_start();
     if (isset($_SESSION['keyword'])) {
         $temp = json_decode($user->searchUser($_SESSION['keyword']),true);
@@ -168,21 +184,13 @@ $app->get('/search',function (Request $request, Response $response,$args) use($u
         return $this->view->render($response, 'login.php');
     }
 });
-$app->post('/search',function (Request $request, Response $response,$args) use($user) {
+
+$app->get('/search',function (Request $request, Response $response,$args) use($user) {
     $data = $request->getParsedBody();
-    $keyword = filter_var($data['inputsearch'], FILTER_SANITIZE_STRING);
     session_start();
+    $keyword = filter_var($data['inputsearch'], FILTER_SANITIZE_STRING);
     $_SESSION['keyword'] = $keyword;
     return $this->view->render($response, 'search.php');
-});
-
-$app->get('/homepage',function (Request $request, Response $response, $args) use($activity){
-    session_start();
-    if(isset($_SESSION['userid'])) {
-        return $this->view->render($response,'sportdata.php');
-    } else {
-        return $this->view->render($response,'admin.php');
-    }
 });
 
 $app->get('/friend/show',function (Request $request, Response $response,$args) use($user,$friend) {
@@ -197,4 +205,14 @@ $app->get('/friend/show',function (Request $request, Response $response,$args) u
         $temp['isFriend'] = 0;
     }
     return json_encode($temp);
+});
+
+$app->get('/homepage',function (Request $request, Response $response, $args) use($user){
+    session_start();
+    if(isset($_SESSION['userid'])) {
+        return $this->view->render($response, 'sportdata.php');
+    } else {
+        return $this->view->render($response, 'admin.php');
+    }
+
 });

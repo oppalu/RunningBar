@@ -29,7 +29,7 @@
                     var starttime = entry['starttime'];
                     var endtime = entry['endtime'];
                     var author = entry['createuser'];
-                    var path = "../public/img/team.png";
+                    var path = "../public/img/team.jpg";
                     if(type == 'single')
                         path = "../public/img/single.png";
                     var introduction = entry['introduction'];

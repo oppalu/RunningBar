@@ -20,7 +20,7 @@
             searchUser();
         });
         function searchUser() {
-            $.getJSON('/search',function(data){
+            $.getJSON('/searchre',function(data){
                 var ul = document.getElementById('search');
                 $.each(data,function (entryindex,entry) {
                     var id = entry['userid'];
@@ -34,9 +34,9 @@
                     if(entry['avatar'] != null)
                         path = "../"+entry['avatar'];
 
-                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
+                    var single = '<li class="col-md-12"><form method="post" action="/addFriend"><div class="col-sm-1"><img style="width: 100% " class="img-circle" src="'+path+'"></div>';
                     single += '<div class="col-sm-2"><a href="/sportinfo/'+id+'"><b>'+name+'</b></a><br><label>'+sex+'</label><br><label>'+location+'</label></div>';
-                    single += '<div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button class="btn btn-info">';
+                    single += '<input type="hidden" name="friendid" value="'+id+'"/><div class="col-sm-7"><label>'+slogen+'</label></div><div class="col-sm-2"><button class="btn btn-info">';
                     if(entry['isFriend'] == 1) {
                         single += '<i class="glyphicon glyphicon-plus"></i>已&nbsp;关&nbsp;注</button></div><hr class="col-sm-12" size="10"></form>';
                     } else {

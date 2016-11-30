@@ -10,18 +10,21 @@ require_once 'MyDB.php';
 
 class UserModel {
 
-    function __construct() {
+    private static $model = null;
+
+    public static function getInstance(){
+        if(self::$model == null)
+            self::$model = new UserModel();
+        return self::$model;
+    }
+
+
+    private function __construct() {
         MyDB::initialize();
         date_default_timezone_set("Asia/Shanghai");
     }
 
     function register($username,$phone,$password) {
-        if($username == null)
-            return '用户名不能为空!';
-        if($password == null)
-            return '密码不能为空!';
-        if (strlen($phone) != 11)
-            return '手机号码格式错误!';
         $result = MyDB::insert(
             'user',
             array(
@@ -36,8 +39,6 @@ class UserModel {
     }
 
     function login($username,$password) {
-        if($username == null || $password == null)
-            return '用户名与密码不得为空!';
         $result = MyDB::select(
             'user',
             'password',

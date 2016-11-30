@@ -37,18 +37,25 @@
                 document.getElementById('sslogen').innerHTML = data.slogen;
 
                 var dic = document.getElementById('adddd');
+
                 if(data.isFriend == 0) {
-                    dic.innerHTML +='<form method="post" action="/addFriend"><input type="hidden" name="friendid" value="'+data.userid+'"/>';
-                    dic.innerHTML +='<button type="submit" class="btn btn-primary btn-block">关注</button></form>';
+                    var single = '<form method="post" action="/addFriend"><div class="col-sm-12">';
+                    single += '<input type="hidden" name="friendid" value="'+data.userid+'"/>';
+                    single +='<button type="submit" class="btn btn-primary btn-block">关注</button></div></form>';
+
+                    dic.innerHTML +=single;
                 } else {
-                    dic.innerHTML +='<form method="post" action="/deleteFriend"><input type="hidden" name="friendid" value="'+data.userid+'"/>';
-                    dic.innerHTML +='<button type="submit" class="btn btn-primary btn-block">取消关注</button></form>';
+                    var single = '<form method="post" action="/deleteFriend"><div class="col-sm-12">';
+                    single += '<input type="hidden" name="friendid" value="'+data.userid+'"/>';
+                    single +='<button type="submit" class="btn btn-primary btn-block">取消关注</button></div></form>';
+
+                    dic.innerHTML +=single;
                 }
             });
         }
 
         function initFSports() {
-            $.getJSON('/getsport',function(data){
+            $.getJSON('/getfsport',function(data){
                 document.getElementById('registerday').innerHTML = data.registerday;
                 document.getElementById('todaywalk').innerHTML = (data.todaywalk==null ? 0 : data.todaywalk);
                 document.getElementById('todayrun').innerHTML = (data.todayrun==null ? 0 : data.todayrun);
@@ -74,12 +81,12 @@
                 <!--个人基本信息部分,姓名、粉丝数、好友数、动态数、等级、所在地。。。-->
                 <div class="col-md-3">
                     <div class="box box-primary">
-                        <div id="adddd" class="box-body">
+                        <div class="box-body">
                             <img id="simage" width="80%" height="80%" class="center-block img-responsive img-circle">
                             <h3 id="sname" class="text-center"></h3>
                             <p id="slevel" class="text-muted text-center"></p>
 
-                            <ul class="list-group">
+                            <ul id="adddd" class="list-group">
                                 <li class="list-group-item">
                                     <b>粉丝数</b>
                                     <a id="sfollower" class="pull-right"></a>

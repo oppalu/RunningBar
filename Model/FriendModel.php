@@ -9,7 +9,16 @@ require_once 'MyDB.php';
 
 class FriendModel {
 
-    function __construct() {
+    private static $model = null;
+
+    public static function getInstance(){
+        if(self::$model == null)
+            self::$model = new FriendModel();
+        return self::$model;
+    }
+
+
+    private function __construct() {
         MyDB::initialize();
         date_default_timezone_set("Asia/Shanghai");
     }

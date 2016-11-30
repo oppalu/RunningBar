@@ -40,11 +40,11 @@
                     var state = entry['state'];
                     var starttime = entry['starttime'];
                     var endtime = entry['endtime'];
-                    var path = "../public/img/team.png";
+                    var path = "../public/img/team.jpg";
                     if(type == 'single')
                         path = "../public/img/single.png";
 
-                    var single = '<li class="col-md-12"><div class="col-sm-1"><img style="width: 100%;" class="img-circle" src="';
+                    var single = '<li class="col-md-12"><div class="col-sm-1"><img alt="activity" style="width: 100%;" class="img-circle" src="';
                     single += path+'"></div><div class="col-sm-3"><a href="/activityInfo/'+id+'"><h4>'+name+'</h4></a>';
                     single += '<label class="label-success">'+state+'</label></div><div class="col-sm-5 pull-right">';
                     single += '<label>'+starttime+' - '+endtime+'</label></div><hr class="col-sm-12" size="10"></li>';

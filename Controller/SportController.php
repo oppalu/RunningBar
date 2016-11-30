@@ -8,9 +8,9 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'Model/SportModel.php';
+require_once 'Model/SportModel.php';
 
-$sport = new SportModel();
+$sport = SportModel::getInstance();
 
 $app->get('/statistics',function (Request $request, Response $response,$args) use($sport) {
     session_start();
@@ -34,6 +34,21 @@ $app->get('/sportinfo/{userid}',function (Request $request, Response $response,$
 $app->get('/getsport',function (Request $request, Response $response,$args) use($sport) {
     session_start();
     $userid = $_SESSION['userid'];
+    $temp = json_decode($sport->showTodayRun($userid),true);
+    $temp['todaywalk'] = json_decode($sport->showTodayWalk($userid),true)['todaywalk'];
+    $temp['totalrun'] = json_decode($sport->showTotalRun($userid),true)['totalrun'];
+    $temp['totalwalk'] = json_decode($sport->showTotalWalk($userid),true)['totalwalk'];
+    $temp['registerday'] = $sport->registertime($userid);
+    $temp2 = json_decode($sport->analyse($userid),true);
+    $temp['calories'] = $temp2['calories'];
+    $temp['analyse'] = $temp2['analyse'];
+
+    return json_encode($temp);
+});
+
+$app->get('/getfsport',function (Request $request, Response $response,$args) use($sport) {
+    session_start();
+    $userid = $_SESSION['sportuserid'];
     $temp = json_decode($sport->showTodayRun($userid),true);
     $temp['todaywalk'] = json_decode($sport->showTodayWalk($userid),true)['todaywalk'];
     $temp['totalrun'] = json_decode($sport->showTotalRun($userid),true)['totalrun'];

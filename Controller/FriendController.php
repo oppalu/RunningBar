@@ -8,11 +8,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'Model/FriendModel.php';
+require_once 'Model/FriendModel.php';
 require_once 'Model/MessageModel.php';
 
-$friend = new FriendModel();
-$message = new MessageModel();
+$friend = FriendModel::getInstance();
+$message = MessageModel::getInstance();
 
 $app->get('/friend',function (Request $request, Response $response,$args) use($friend) {
     return $this->view->render($response, 'friends.php');

@@ -2,33 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: phoebegl
- * Date: 2016/11/15
- * Time: 09:33
+ * Date: 2016/11/30
+ * Time: 18:15
  */
+require 'FriendModel.php';
+$friend = FriendModel::getInstance();
 
-//require 'FriendModel.php';
-//
-//$friend = new FriendModel();
-//
-//$result = $friend->isFriend(9,8);
-//print_r($result);
-
-//require 'UserModel.php';
-//
-//$user = new UserModel();
-//
-//$result = $user->searchUser('sy');
-//print_r($result);
-
-require 'SportModel.php';
-$sport = new SportModel();
-
-$result = $sport->getWeekData(9);
-
+$result = $friend->addFriend(50,51);
 print_r($result);
-
-//require 'Generate.php';
-//$test = new Generate();
-//for ($i=0;$i<24;$i++) {
-//    $test->generateData(19,'2015-02-26 21:11:05',67,'walk');
-//}

@@ -10,7 +10,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require_once 'Model/MessageModel.php';
 
-$message = new MessageModel();
+$message = MessageModel::getInstance();
 
 $app->get('/showMessage',function (Request $request, Response $response,$args) use($message) {
     session_start();

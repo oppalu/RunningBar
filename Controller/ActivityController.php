@@ -8,11 +8,11 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require 'Model/ActivityModel.php';
+require_once 'Model/ActivityModel.php';
 require_once 'Model/MessageModel.php';
 
-$activity = new ActivityModel();
-$message = new MessageModel();
+$activity = ActivityModel::getInstance();
+$message = MessageModel::getInstance();
 
 $app->get('/getActivityList',function (Request $request, Response $response,$args) use($activity) {
     return $this->view->render($response, 'activity.php');
